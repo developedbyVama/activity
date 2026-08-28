@@ -1,0 +1,4673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>8tivity — India's Missing Community Coordination Infrastructure</title>
+  <meta name="description"
+    content="8tivity is the coordination layer built for WhatsApp and UPI. Manage events, classes, workshops, and donations with zero app downloads, direct UPI payments, and 0% commission.">
+  <meta name="theme-color" content="#075E54">
+
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <!-- Remix Icon CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
+  <!-- AOS (Animate On Scroll) CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      /* Premium WhatsApp & Coordination Color Palette */
+      --wa-dark-green: #075E54;
+      --wa-deep-emerald: #054840;
+      --wa-teal: #128C7E;
+      --wa-emerald: #00A884;
+      --wa-light-green: #25D366;
+      --wa-subtle-green: #E8F7EE;
+      --wa-bubble-green: #D9FDD3;
+      --wa-accent-amber: #E3941F;
+      --wa-accent-amber-light: #FFF8EE;
+
+      --color-foreground: #0F172A;
+      --color-foreground-muted: #475569;
+      --color-foreground-subtle: #64748B;
+      --color-background: #FFFFFF;
+      --color-surface: #F8FAF9;
+      --color-surface-card: #FFFFFF;
+      --color-border: #E2E8F0;
+      --color-border-light: rgba(18, 140, 126, 0.14);
+
+      --color-chat-canvas: #EFEAE2;
+      --color-dark-bg: #071D18;
+      --color-dark-surface: #0B2923;
+
+      /* Spacing Rules */
+      --section-gap: 6.5rem;
+      --container-max-width: 1240px;
+
+      /* Typography */
+      --font-primary: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-heading: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    }
+
+    @media (max-width: 767.98px) {
+      :root {
+        --section-gap: 4rem;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      color: var(--color-foreground-muted);
+      background-color: var(--color-background);
+      line-height: 1.7;
+      letter-spacing: -0.01em;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: var(--font-heading);
+      color: var(--color-foreground);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+    }
+
+    /* Section Architecture Gap */
+    .page-section {
+      padding-top: var(--section-gap);
+      padding-bottom: var(--section-gap);
+      position: relative;
+    }
+
+    /* Premium Section Badges */
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--wa-teal);
+      background: var(--wa-subtle-green);
+      padding: 7px 16px;
+      border-radius: 50px;
+      margin-bottom: 1.25rem;
+      border: 1px solid rgba(18, 140, 126, 0.22);
+      box-shadow: 0 2px 10px rgba(18, 140, 126, 0.08);
+    }
+
+    .section-badge.amber {
+      color: #9A620F;
+      background: var(--wa-accent-amber-light);
+      border-color: rgba(227, 148, 31, 0.28);
+      box-shadow: 0 2px 10px rgba(227, 148, 31, 0.08);
+    }
+
+    .section-badge.danger-badge {
+      color: #B65442;
+      background: #FDF1EF;
+      border-color: #F8D8D2;
+      box-shadow: 0 2px 10px rgba(182, 84, 66, 0.08);
+    }
+
+    /* Premium Buttons */
+    .btn-wa-primary {
+      background: linear-gradient(135deg, #25D366 0%, #00A884 100%);
+      color: #FFFFFF !important;
+      border: none;
+      border-radius: 10px;
+      padding: 15px 32px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      letter-spacing: 0.01em;
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(0, 168, 132, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-wa-primary::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+      transition: 0.5s;
+    }
+
+    .btn-wa-primary:hover::after {
+      left: 100%;
+    }
+
+    .btn-wa-primary:hover {
+      background: linear-gradient(135deg, #1EBE5D 0%, #008f6f 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 36px rgba(0, 168, 132, 0.4);
+      color: #FFFFFF !important;
+    }
+
+    .btn-wa-outline {
+      background: #FFFFFF;
+      color: var(--wa-dark-green) !important;
+      border: 1.5px solid var(--wa-teal);
+      border-radius: 10px;
+      padding: 14px 30px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+    }
+
+    .btn-wa-outline:hover {
+      background: var(--wa-subtle-green);
+      border-color: var(--wa-dark-green);
+      color: var(--wa-dark-green) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(18, 140, 126, 0.15);
+    }
+
+    .btn-arrow-icon {
+      transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .btn-wa-primary:hover .btn-arrow-icon,
+    .btn-wa-outline:hover .btn-arrow-icon {
+      transform: translateX(5px);
+    }
+
+    /* Header & Navigation */
+    .site-header {
+      background-color: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+      position: sticky;
+      top: 0;
+      z-index: 1050;
+      transition: all 0.3s ease;
+    }
+
+    .brand-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--wa-teal) 0%, var(--wa-emerald) 100%);
+      color: #FFFFFF;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.25rem;
+      box-shadow: 0 6px 14px rgba(0, 168, 132, 0.25);
+    }
+
+    .brand-logo-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--color-foreground);
+      letter-spacing: -0.03em;
+      margin: 0;
+      line-height: 1;
+    }
+
+    .brand-logo-sub {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--wa-teal);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-link-custom {
+      color: var(--color-foreground-muted);
+      font-weight: 600;
+      font-size: 0.93rem;
+      padding: 8px 14px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .nav-link-custom:hover {
+      color: var(--wa-teal);
+      background-color: var(--wa-subtle-green);
+    }
+
+    /* ========================================================================= */
+    /* 01. HERO SECTION (EXACT FIZENS WEBFLOW TEMPLATE ARCHITECTURE) */
+    /* ========================================================================= */
+    .fizens-hero-section {
+      background-color: #FFFFFF;
+      padding: 60px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fizens-banner-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .fizens-banner-contant-wrap {
+      position: relative;
+      margin-bottom: 0;
+    }
+
+    .fizens-banner-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Left Wrap: Title & Button */
+    .fizens-left-wrap {
+      max-width: 480px;
+      position: relative;
+      z-index: 3;
+      padding-top: 10px;
+    }
+
+    .fizens-title-wrap {
+      margin-bottom: 0;
+    }
+
+    .fizens-banner-title {
+      font-size: clamp(2.4rem, 4.2vw, 4rem);
+      font-weight: 400;
+      line-height: 1.12;
+      color: #0F172A;
+      letter-spacing: -0.035em;
+      margin: 0;
+    }
+
+    .fizens-title-flex {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 4px;
+      margin-left: 80px;
+    }
+
+    .fizens-title-divider {
+      width: 32px;
+      height: 3px;
+      background-color: #94A3B8;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .fizens-title-grey {
+      color: #07a648;
+
+      font-size: clamp(2.4rem, 4.2vw, 4rem);
+      font-weight: 500;
+      line-height: 1.12;
+      letter-spacing: -0.035em;
+      margin: 0;
+    }
+
+    .fizens-btn-wrapper {
+      margin-top: 57px;
+      margin-left: 135px;
+    }
+
+    .fizens-primary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background-color: #E8F8EE;
+      border: 1px solid rgba(0, 168, 132, 0.25);
+      border-radius: 100px;
+      padding: 6px 8px 6px 26px;
+      color: #075E54;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(0, 168, 132, 0.1);
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .fizens-primary-btn:hover {
+      background-color: #D9FDD3;
+      border-color: #00A884;
+      color: #075E54;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 168, 132, 0.22);
+    }
+
+    .fizens-btn-icon-wrap {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #075E54;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      transition: all 0.3s ease;
+    }
+
+    .fizens-primary-btn:hover .fizens-btn-icon-wrap {
+      background-color: #00A884;
+      transform: rotate(45deg);
+    }
+
+    .fizens-btn-icon-wrap img {
+      width: 14px;
+      height: 14px;
+      filter: brightness(0) invert(1);
+    }
+
+    /* Right Wrap: Plus, Copy & Trust Count */
+    .fizens-right-wrap {
+      max-width: 320px;
+      position: relative;
+      z-index: 9;
+      padding-top: 15px;
+    }
+
+    .fizens-plus-wrap {
+      margin-bottom: 16px;
+    }
+
+    .fizens-plus-icon {
+      width: 24px;
+      height: 24px;
+      filter: invert(34%) sepia(85%) saturate(1450%) hue-rotate(130deg) brightness(92%) contrast(101%);
+    }
+
+    .fizens-banner-details {
+      font-size: 0.96rem;
+      line-height: 1.6;
+      color: #475569;
+      font-weight: 500;
+      margin-bottom: 28px;
+    }
+
+    .fizens-counter-flex {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    .fizens-client-stack {
+      display: flex;
+      align-items: center;
+    }
+
+    .fizens-client-img {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 2px solid #FFFFFF;
+      margin-right: -12px;
+      background-color: #F1F5F9;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .fizens-count-text {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: #0F172A;
+      margin: 0;
+      line-height: 1;
+      padding-left: 14px;
+    }
+
+    .fizens-client-sub {
+      font-size: 0.8rem;
+      color: #64748B;
+      font-weight: 500;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    /* Center Overlay 3D Smartphone Image (Shifted slightly to left) */
+    .fizens-phone-overlay-wrap {
+      position: absolute;
+      left: 34.5%;
+      top: 80px;
+      transform: translateX(-50%);
+      z-index: 8;
+      width: 420px;
+      pointer-events: none;
+    }
+
+    .fizens-phone-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 30px 60px rgba(7, 94, 84, 0.25));
+      transition: transform 0.5s ease;
+      pointer-events: auto;
+    }
+
+    .fizens-phone-image:hover {
+      transform: translateY(-8px) scale(1.02);
+    }
+
+    /* Partner Curved Card (WhatsApp Teal Gradient) */
+    .fizens-partner-card {
+      background: linear-gradient(135deg, #075E54 0%, #0A6C60 50%, #00A884 100%);
+      border-radius: 34px;
+      padding: 135px 30px 45px;
+      margin-top: 100px;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+      color: #FFFFFF;
+      /* box-shadow: 0 24px 60px -15px rgba(7, 94, 84, 0.35); */
+      text-align: center;
+    }
+
+    /* Infinite Marquee Ticker for Watermark Text */
+    .fizens-ticker-wrapper {
+      position: absolute;
+      top: 7%;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+      display: flex;
+    }
+
+    .fizens-ticker-track {
+      display: flex;
+      white-space: nowrap;
+      animation: fizensMarquee 25s linear infinite;
+    }
+
+    .fizens-ticker-item {
+      font-size: clamp(3.2rem, 7vw, 6.5rem);
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.14);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0 30px;
+    }
+
+    @keyframes fizensMarquee {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .fizens-partner-content {
+      position: relative;
+      z-index: 3;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .fizens-partner-title {
+      font-size: 2rem;
+      font-weight: 500;
+      color: #FFFFFF;
+      margin-bottom: 30px;
+      line-height: 1.45;
+    }
+
+    .fizens-logos-flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .fizens-badge-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 8px 20px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+    }
+
+    /* Ambient Background SVG Patterns */
+    .fizens-pattern-one {
+      position: absolute;
+      top: -20px;
+      left: 10px;
+      width: 220px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.7;
+    }
+
+    .fizens-pattern-two {
+      position: absolute;
+      top: 40px;
+      right: 20px;
+      width: 200px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    @media (max-width: 991.98px) {
+      .fizens-banner-flex {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: center;
+        text-align: center;
+      }
+
+      .fizens-left-wrap,
+      .fizens-right-wrap {
+        max-width: 100%;
+      }
+
+      .fizens-title-flex {
+        justify-content: center;
+      }
+
+      .fizens-counter-flex {
+        justify-content: center;
+      }
+
+      .fizens-phone-overlay-wrap {
+        position: static;
+        transform: none;
+        width: 320px;
+        margin: 1.5rem auto;
+      }
+
+      .fizens-partner-card {
+        margin-top: 2rem;
+        padding: 50px 20px 35px;
+      }
+    }
+
+    .highlight-community {
+      color: #00A884;
+      position: relative;
+      display: inline-block;
+    }
+
+    .brush-underline-svg {
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 100%;
+      height: 14px;
+      pointer-events: none;
+    }
+
+    .hero-ref-subhead {
+      font-size: 1.22rem;
+      color: #334155;
+      font-weight: 500;
+      line-height: 1.65;
+      margin-bottom: 2.25rem;
+    }
+
+    /* 3-Card Integration Stack: WhatsApp + UPI + 8tivity */
+    .ref-app-stack {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: transparent;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .ref-stack-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      border-radius: 18px;
+      padding: 16px 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+      min-width: 105px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .ref-stack-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(18, 140, 126, 0.1);
+      border-color: rgba(18, 140, 126, 0.3);
+    }
+
+    .ref-stack-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      margin: 0 auto 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .wa-icon-bg {
+      background: #E8F8EE;
+      color: #25D366;
+      border: 1px solid rgba(37, 211, 102, 0.2);
+    }
+
+    .upi-icon-bg {
+      background: #F8FAFC;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+    }
+
+    .eight-icon-bg {
+      background: #E6F7F0;
+      color: #00A884;
+      font-weight: 900;
+      font-size: 1.5rem;
+      border: 1px solid rgba(0, 168, 132, 0.25);
+    }
+
+    .ref-stack-name {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #0F172A;
+      line-height: 1.15;
+    }
+
+    .ref-stack-desc {
+      font-size: 0.78rem;
+      color: #64748B;
+      font-weight: 500;
+    }
+
+    .ref-stack-plus {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #94A3B8;
+    }
+
+    /* Reference CTAs */
+    .btn-ref-primary {
+      background: linear-gradient(135deg, #075E54 0%, #053D37 100%);
+      color: #FFFFFF !important;
+      border-radius: 50px;
+      padding: 15px 34px;
+      font-weight: 700;
+      font-size: 0.98rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 24px rgba(7, 94, 84, 0.32);
+      transition: all 0.28s ease;
+    }
+
+    .btn-ref-primary:hover {
+      background: linear-gradient(135deg, #097266 0%, #074B43 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(7, 94, 84, 0.42);
+      color: #FFFFFF !important;
+    }
+
+    .btn-ref-link {
+      color: #075E54 !important;
+      font-weight: 700;
+      font-size: 0.98rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-ref-link:hover {
+      color: #00A884 !important;
+    }
+
+    .ref-link-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid #075E54;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+
+    .btn-ref-link:hover .ref-link-circle {
+      background: #075E54;
+      color: #FFFFFF;
+      transform: translateX(4px);
+    }
+
+    /* Organic Soft Mint Backdrop Blob */
+    .hero-mint-backdrop-blob {
+      position: absolute;
+      width: 530px;
+      height: 530px;
+      background: radial-gradient(circle, #D8F2E5 0%, #E7F7EF 70%, transparent 100%);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Reference Annotation Callouts */
+    .ref-annotation-callout {
+      position: absolute;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .anno-text {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+
+    .anno-top-left {
+      top: 14%;
+      left: -50px;
+      text-align: right;
+    }
+
+    .anno-top-left .anno-arrow-svg {
+      margin-left: auto;
+      margin-top: 6px;
+    }
+
+    .anno-top-right {
+      top: 24%;
+      right: -40px;
+      text-align: left;
+    }
+
+    .anno-top-right .anno-arrow-svg {
+      margin-right: auto;
+      margin-top: 6px;
+    }
+
+    .anno-bottom-right {
+      bottom: 16%;
+      right: -45px;
+      text-align: left;
+    }
+
+    .anno-bottom-right .anno-arrow-svg {
+      margin-right: auto;
+      margin-top: 6px;
+    }
+
+    .anno-arrow-svg {
+      display: block;
+    }
+
+    @media (max-width: 991.98px) {
+      .ref-annotation-callout {
+        display: none;
+      }
+    }
+
+    /* 3D Realistic Smartphone Mockup */
+    .phone-mockup-wrapper {
+      perspective: 1400px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .phone-chassis {
+      background: #0D1619;
+      border-radius: 48px;
+      padding: 12px;
+      box-shadow:
+        0 40px 90px -15px rgba(7, 94, 84, 0.35),
+        0 20px 40px -5px rgba(0, 0, 0, 0.2),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.2),
+        inset 0 0 0 4px #050B0D;
+      max-width: 390px;
+      margin: 0 auto;
+      transform: rotate(-0.5deg);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .phone-chassis:hover {
+      transform: rotate(0deg) translateY(-6px);
+      box-shadow:
+        0 50px 100px -15px rgba(7, 94, 84, 0.45),
+        0 25px 50px -5px rgba(0, 0, 0, 0.25);
+    }
+
+    .phone-dynamic-island {
+      width: 90px;
+      height: 22px;
+      background: #000000;
+      border-radius: 14px;
+      margin: 0 auto 10px;
+    }
+
+    .phone-screen {
+      background: #F0F4F2;
+      border-radius: 38px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    /* WhatsApp Header matching reference */
+    .wa-ref-header {
+      background: #075E54;
+      color: #FFFFFF;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .wa-ref-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #D9FDD3;
+      color: #075E54;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .wa-ref-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1.2;
+    }
+
+    .wa-ref-subtitle {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    /* WhatsApp Chat Body */
+    .wa-ref-chat-canvas {
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 420px;
+      background: #F5F7F6;
+    }
+
+    .wa-ref-bubble-user {
+      background: #FFFFFF;
+      color: #111B21;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .wa-ref-time {
+      font-size: 0.68rem;
+      color: #94A3B8;
+      font-weight: 400;
+    }
+
+    .wa-ref-event-card {
+      background: #FFFFFF;
+      border-radius: 14px;
+      padding: 16px 14px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .wa-ref-event-name {
+      font-size: 0.96rem;
+      font-weight: 800;
+      color: #0F172A;
+    }
+
+    .wa-ref-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: #475569;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .btn-event-in {
+      background: #00A884;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-weight: 700;
+      font-size: 0.84rem;
+      flex-grow: 1;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .btn-event-in:hover {
+      background: #008f6f;
+    }
+
+    .btn-event-out {
+      background: #F1F5F9;
+      color: #475569;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-weight: 700;
+      font-size: 0.84rem;
+      flex-grow: 1;
+      cursor: pointer;
+    }
+
+    .wa-ref-time-small {
+      font-size: 0.66rem;
+      color: #94A3B8;
+    }
+
+    .wa-ref-success-card {
+      background: #FFFFFF;
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+      border: 1px solid #E2E8F0;
+    }
+
+    .wa-ref-success-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #0F172A;
+    }
+
+    .wa-ref-success-sub {
+      font-size: 0.82rem;
+      color: #64748B;
+      font-weight: 600;
+    }
+
+    .wa-ref-check-circle {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #25D366;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.82rem;
+      box-shadow: 0 2px 6px rgba(37, 211, 102, 0.4);
+    }
+
+    .wa-ref-bottom-bar {
+      background: #FFFFFF;
+      padding: 10px 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .wa-ref-bottom-pill {
+      width: 120px;
+      height: 4px;
+      background: #CBD5E1;
+      border-radius: 2px;
+    }
+
+    .wa-bubble {
+      max-width: 88%;
+      padding: 10px 13px;
+      line-height: 1.45;
+      border-radius: 10px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+
+    .wa-bubble.bot {
+      background: #FFFFFF;
+      color: #111B21;
+      align-self: flex-start;
+      border-top-left-radius: 0;
+    }
+
+    .wa-bubble.user {
+      background: #D9FDD3;
+      color: #111B21;
+      align-self: flex-end;
+      border-top-right-radius: 0;
+    }
+
+    .wa-bubble-card {
+      background: #F7FBF9;
+      border: 1px solid #DCECE3;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-top: 6px;
+      font-size: 0.82rem;
+    }
+
+    .wa-time-meta {
+      font-size: 0.68rem;
+      color: rgba(0, 0, 0, 0.45);
+      text-align: right;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 3px;
+    }
+
+    .wa-btn-option {
+      display: block;
+      background: #FFFFFF;
+      color: #075E54;
+      font-weight: 700;
+      font-size: 0.82rem;
+      text-align: center;
+      padding: 8px 12px;
+      margin-top: 6px;
+      border-radius: 6px;
+      border: 1px solid rgba(7, 94, 84, 0.25);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .wa-btn-option:hover {
+      background: #E7F8EE;
+      color: #075E54;
+    }
+
+    /* ========================================================================= */
+    /* PROBLEM VS SOLUTION SIDE-BY-SIDE STYLES (MATCHING REFERENCE) */
+    /* ========================================================================= */
+    /* ========================================================================= */
+    /* 02. PROBLEM VS SOLUTION (FIZENS DESIGN SYSTEM MATCH) */
+    /* ========================================================================= */
+    .fizens-section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      background: #E8F8EE;
+      border: 1px solid rgba(0, 168, 132, 0.25);
+      border-radius: 30px;
+      color: #075E54;
+      font-size: 0.84rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 2px 10px rgba(0, 168, 132, 0.08);
+    }
+
+    .fizens-section-title {
+      font-size: clamp(2.2rem, 3.6vw, 3.8rem);
+      font-weight: 500;
+      color: #0F172A;
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      margin-bottom: 16px;
+    }
+
+    .fizens-green-accent {
+      color: #00A884;
+      font-weight: 500;
+    }
+
+    .fizens-section-sub {
+      font-size: 1.12rem;
+      color: #64748B;
+      line-height: 1.6;
+      max-width: 660px;
+      margin: 0 auto 52px;
+      font-weight: 400;
+    }
+
+    .page-section {
+      padding: 96px 0;
+      position: relative;
+    }
+
+    .bg-light-mesh {
+      background-color: #F8FAFC !important;
+      background-image: radial-gradient(rgba(0, 168, 132, 0.06) 1.2px, transparent 1.2px) !important;
+      background-size: 28px 28px !important;
+    }
+
+    @media (max-width: 991.98px) {
+      .page-section {
+        padding: 64px 0;
+      }
+
+      .fizens-section-sub {
+        margin-bottom: 36px;
+      }
+    }
+
+    .vs-card {
+      border-radius: 28px;
+      padding: 2.5rem 2.25rem;
+      height: 100%;
+      transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 16px 36px rgba(15, 23, 42, 0.04);
+      position: relative;
+      overflow: hidden;
+      background: #FFFFFF;
+    }
+
+    .problem-card-wrap {
+      background: linear-gradient(165deg, #FFFFFF 0%, #FFF8F6 100%);
+      border: 1.5px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .problem-card-wrap:hover {
+      border-color: rgba(239, 68, 68, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 45px rgba(239, 68, 68, 0.08);
+    }
+
+    .solution-card-wrap {
+      background: linear-gradient(165deg, #FFFFFF 0%, #F0FDF4 100%);
+      border: 1.5px solid rgba(0, 168, 132, 0.3);
+    }
+
+    .solution-card-wrap:hover {
+      border-color: #00A884;
+      transform: translateY(-4px);
+      box-shadow: 0 20px 45px rgba(0, 168, 132, 0.1);
+    }
+
+    .vs-title {
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: #0F172A;
+      line-height: 1.25;
+    }
+
+    .text-problem-red {
+      color: #D9381E;
+    }
+
+    .text-solution-green {
+      color: #00875A;
+    }
+
+    .vs-subtitle {
+      font-size: 0.92rem;
+      color: #64748B;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    .vs-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #1E293B;
+      padding: 8px 12px;
+      border-radius: 12px;
+      transition: background 0.2s ease;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .vs-list-problem li:hover {
+      background: rgba(254, 226, 226, 0.5);
+      border-color: rgba(239, 68, 68, 0.2);
+    }
+
+    .vs-list-solution li:hover {
+      background: rgba(209, 250, 229, 0.5);
+      border-color: rgba(0, 168, 132, 0.25);
+    }
+
+    .vs-icon-badge {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .problem-icon {
+      background: #FEE2E2;
+      color: #DC2626;
+    }
+
+    .solution-icon {
+      background: #DCFCE7;
+      color: #16A34A;
+    }
+
+    .vs-img-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 280px;
+      padding: 10px 0;
+    }
+
+    .vs-ambient-glow {
+      display: none;
+    }
+
+    .vs-art-img {
+      max-height: 280px;
+      object-fit: contain;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+      animation: vsFloatAnimation 5s ease-in-out infinite;
+      filter: none;
+    }
+
+    .vs-float-chip {
+      position: absolute;
+      z-index: 3;
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      box-shadow: none;
+      white-space: nowrap;
+      pointer-events: none;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .chip-problem-1 {
+      color: #991B1B;
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      background: #FFF5F2;
+    }
+
+    .chip-solution-1 {
+      color: #065F46;
+      border: 1px solid rgba(0, 168, 132, 0.28);
+      background: #F0FDF5;
+    }
+
+    .vs-center-arrow-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 52px;
+      height: 52px;
+      background: #075E54;
+      color: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      z-index: 10;
+      box-shadow: none;
+      border: 3px solid #FFFFFF;
+      transition: all 0.3s ease;
+    }
+
+    .vs-center-arrow-circle:hover {
+      background: #00A884;
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+
+    /* Enhanced Problem vs Solution UI Mockup Cards */
+    .vs-preview-box {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 16px 14px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+      position: relative;
+    }
+
+    .vs-preview-problem {
+      border: 1px solid #FCDFD8;
+    }
+
+    .vs-preview-solution {
+      border: 1px solid #DDF3E8;
+    }
+
+    .vs-mock-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #F1F5F9;
+    }
+
+    .vs-mock-badge-problem {
+      background: #FDE6E2;
+      color: #D9381E;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .vs-mock-badge-solution {
+      background: #D9FDD3;
+      color: #00875A;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .vs-chat-item {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      font-size: 0.76rem;
+      color: #334155;
+      text-align: left;
+      line-height: 1.35;
+    }
+
+    .vs-chat-item.alert-unread {
+      background: #FFF5F3;
+      border-color: #FED7CE;
+      color: #9C2A18;
+    }
+
+    .vs-sol-metric-card {
+      background: #F2FAF6;
+      border: 1px solid #C4ECDA;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .vs-sol-metric-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #075E54;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .vs-sol-metric-val {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #00875A;
+      line-height: 1.2;
+    }
+
+    /* ========================================================================= */
+    /* 03. HOW 8TIVITY WORKS: EXACT MATCH TO REFERENCE */
+    /* ========================================================================= */
+    .flow-step-box {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 18px;
+      overflow: hidden;
+      height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .flow-step-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0, 168, 132, 0.08);
+      border-color: rgba(0, 168, 132, 0.4);
+    }
+
+    .flow-step-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .flow-step-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 22px;
+      text-align: left;
+    }
+
+    .flow-num-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #075E54;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.88rem;
+      flex-shrink: 0;
+    }
+
+    .flow-step-title {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: #0F172A;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .flow-step-sub {
+      font-size: 0.84rem;
+      color: #64748B;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .flow-arrow-divider {
+      position: absolute;
+      right: -24px;
+      top: 125px;
+      transform: translateY(-50%);
+      color: #00A884;
+      font-size: 1.85rem;
+      font-weight: 700;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ========================================================================= */
+    /* 06. THE TRUST LAYER: VERTICAL TIMELINE STEPPER & MOBILE MOCKUP */
+    /* ========================================================================= */
+    .fizens-work-wrapper {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    .fizens-work-phone-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #F8FAFC;
+      background-image: radial-gradient(rgba(0, 168, 132, 0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+      border: 1.5px solid rgba(226, 232, 240, 0.9);
+      border-radius: 32px;
+      padding: 48px 30px;
+    }
+
+    .fizens-mock-phone {
+      width: 320px;
+      background: #000000;
+      border-radius: 44px;
+      padding: 10px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+
+    .fizens-mock-screen {
+      background: #FFFFFF;
+      border-radius: 36px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .fizens-phone-top-bar {
+      background: #075E54;
+      color: #FFFFFF;
+      padding: 16px 20px 24px;
+      text-align: center;
+    }
+
+    .fizens-phone-top-bar h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .fizens-phone-top-bar .plan-price {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .fizens-phone-form {
+      padding: 20px 18px 24px;
+      background: #FFFFFF;
+    }
+
+    .fizens-phone-card {
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+
+    .fizens-phone-btn {
+      background: #00A884;
+      color: #FFFFFF;
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-top: 10px;
+    }
+
+    /* Vertical Timeline Stepper */
+    .fizens-timeline-track {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      padding-left: 20px;
+    }
+
+    .fizens-timeline-track::before {
+      content: '';
+      position: absolute;
+      left: 39px;
+      top: 24px;
+      bottom: 24px;
+      width: 2px;
+      background: rgba(0, 168, 132, 0.25);
+      z-index: 1;
+    }
+
+    .fizens-timeline-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .fizens-timeline-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #075E54;
+      border: 2px solid #075E54;
+      color: #FFFFFF;
+      font-size: 1.05rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(7, 94, 84, 0.22);
+      transition: all 0.3s ease;
+    }
+
+    .fizens-timeline-step:hover .fizens-timeline-num {
+      background: #00A884;
+      border-color: #00A884;
+      transform: scale(1.08);
+      box-shadow: 0 6px 18px rgba(0, 168, 132, 0.35);
+    }
+
+    .fizens-timeline-content h3 {
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: #0F172A;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .fizens-timeline-content p {
+      font-size: 0.98rem;
+      color: #64748B;
+      font-weight: 400;
+      line-height: 1.6;
+      margin-bottom: 0;
+      max-width: 440px;
+    }
+
+    @media (max-width: 991.98px) {
+      .fizens-work-wrapper {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    /* ========================================================================= */
+    /* 04. USE CASES 5-CARD SHOWCASE STYLES (MATCHING REFERENCE) */
+    /* ========================================================================= */
+    .use-case-card {
+      background: #FFFFFF;
+      border: 1px solid #E5EBE8;
+      border-radius: 10px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+      transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* PhonePe Style Live Action Chips for Hero */
+    .phonepe-live-chip {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 14px;
+      padding: 10px 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 168, 132, 0.14);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 10;
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .phonepe-live-chip:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 18px 40px rgba(0, 168, 132, 0.18), 0 0 0 1.5px rgba(0, 168, 132, 0.35);
+    }
+
+    .chip-top-left {
+      top: 14%;
+      left: -8%;
+    }
+
+    .chip-top-right {
+      top: 28%;
+      right: -8%;
+    }
+
+    .chip-bottom-right {
+      bottom: 12%;
+      right: -4%;
+    }
+
+    @media (max-width: 991.98px) {
+      .chip-top-left {
+        left: 0;
+        top: 4%;
+      }
+
+      .chip-top-right {
+        right: 0;
+        top: 38%;
+      }
+
+      .chip-bottom-right {
+        right: 0;
+        bottom: 4%;
+      }
+    }
+
+    .chip-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+
+    .chip-avatar.wa-green {
+      background: #E8F8EE;
+      color: #00A884;
+    }
+
+    .chip-avatar.wa-emerald {
+      background: #E7F8EE;
+      color: #075E54;
+    }
+
+    .chip-avatar.wa-shield {
+      background: #D9FDD3;
+      color: #00875A;
+    }
+
+    .chip-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1.2;
+      margin-bottom: 2px;
+      white-space: nowrap;
+    }
+
+    .chip-sub {
+      font-size: 0.72rem;
+      color: #64748B;
+      font-weight: 500;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    /* PhonePe Style Category Bento Grid for Use Cases */
+    .use-case-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.07);
+      border-radius: 16px;
+      padding: 24px 20px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .use-case-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(0, 168, 132, 0.14);
+      border-color: rgba(0, 168, 132, 0.38);
+    }
+
+    .use-case-top-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: #E8F8EE;
+      color: #00A884;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .use-case-card:hover .use-case-top-icon {
+      background: #00A884;
+      color: #FFFFFF;
+      transform: scale(1.08) rotate(3deg);
+      box-shadow: 0 8px 20px rgba(0, 168, 132, 0.35);
+    }
+
+    .use-case-pill-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #075E54;
+      background: #E8F8EE;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      width: fit-content;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .use-case-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0F172A;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .use-case-desc {
+      font-size: 0.82rem;
+      color: #64748B;
+      line-height: 1.5;
+      margin-bottom: 0;
+    }
+
+    /* ========================================================================= */
+    /* 04. BENTO GRID ARCHITECTURE (EXACT FIZENS 2X2 MATCH) */
+    /* ========================================================================= */
+    .fizens-bento-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .fizens-bento-card {
+      background-color: #F8FAFC;
+      background-image: radial-gradient(rgba(0, 168, 132, 0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+      border: 1.5px solid rgba(226, 232, 240, 0.9);
+      border-radius: 28px;
+      padding: 42px 36px;
+      min-height: 420px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .fizens-bento-card:hover {
+      transform: translateY(-4px);
+      border-color: #00A884;
+    }
+
+    .bento-title {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #0F172A;
+      margin-bottom: 12px;
+      letter-spacing: -0.025em;
+      line-height: 1.25;
+    }
+
+    .bento-desc {
+      font-size: 1rem;
+      color: #64748B;
+      line-height: 1.6;
+      font-weight: 400;
+      margin: 0;
+      max-width: 420px;
+    }
+
+    /* Card 1: 8tivity Card with floating node connectors */
+    .bento-card-hub-preview {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 0 16px;
+      min-height: 210px;
+    }
+
+    .bento-mini-card {
+      background: linear-gradient(135deg, #075E54 0%, #00A884 100%);
+      color: #FFFFFF;
+      border-radius: 20px;
+      padding: 20px 24px;
+      width: 240px;
+      box-shadow: 0 16px 36px rgba(7, 94, 84, 0.22);
+      position: relative;
+      z-index: 2;
+    }
+
+    .bento-mini-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+      opacity: 0.92;
+    }
+
+    .bento-mini-card-bal {
+      font-size: 1.55rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+
+    .bento-mini-card-sub {
+      font-size: 0.74rem;
+      font-weight: 400;
+      opacity: 0.8;
+    }
+
+    .bento-node-icon {
+      position: absolute;
+      width: 38px;
+      height: 38px;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #075E54;
+      font-size: 1.05rem;
+      z-index: 3;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    .node-top-left {
+      top: 15px;
+      left: 14%;
+    }
+
+    .node-top-right {
+      top: 20px;
+      right: 14%;
+    }
+
+    .node-bottom-left {
+      bottom: 15px;
+      left: 10%;
+    }
+
+    .node-bottom-right {
+      bottom: 20px;
+      right: 12%;
+    }
+
+    .node-top-mid {
+      top: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Card 2 & 3: Goals Stack UI */
+    .bento-goals-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding-top: 18px;
+    }
+
+    .bento-goal-item {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 18px;
+      padding: 15px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+    }
+
+    .bento-goal-item:hover {
+      transform: translateX(4px);
+      border-color: #00A884;
+    }
+
+    .bento-goal-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: #E8F8EE;
+      color: #075E54;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-right: 14px;
+      flex-shrink: 0;
+    }
+
+    /* Card 4: Vibrant CTA Card */
+    .fizens-bento-cta {
+      background: radial-gradient(rgba(255, 255, 255, 0.14) 1.5px, transparent 1.5px), linear-gradient(135deg, #075E54 0%, #0A6C60 50%, #00A884 100%) !important;
+      background-size: 24px 24px, 100% 100% !important;
+      color: #FFFFFF !important;
+      border: none !important;
+      position: relative;
+    }
+
+    .fizens-bento-cta .bento-title {
+      color: #FFFFFF;
+      font-size: 1.85rem;
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+
+    .fizens-bento-cta .bento-desc {
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 1.05rem;
+      font-weight: 400;
+      margin-bottom: 28px;
+    }
+
+    .bento-pill-btn {
+      background-color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      color: #075E54 !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .bento-pill-btn .fizens-btn-icon-wrap {
+      background-color: #075E54;
+      color: #FFFFFF;
+    }
+
+    .bento-pill-btn:hover {
+      background-color: #E8F8EE;
+      color: #075E54 !important;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    }
+
+    .bento-pill-btn:hover .fizens-btn-icon-wrap {
+      background-color: #00A884;
+      transform: rotate(45deg);
+    }
+
+    .bento-cta-icon {
+      position: absolute;
+      top: 28px;
+      right: 28px;
+      width: 80px;
+      height: 80px;
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    @media (max-width: 991.98px) {
+      .fizens-bento-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ========================================================================= */
+    /* 06. THE TRUST LAYER LUXURY SECTION STYLES */
+    /* ========================================================================= */
+    .trust-full-section {
+      background: radial-gradient(circle at 75% 25%, #053D35 0%, #032722 55%, #011512 100%) !important;
+      padding: 6.5rem 0 !important;
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid rgba(0, 186, 136, 0.18);
+      border-bottom: 1px solid rgba(0, 186, 136, 0.18);
+    }
+
+    .trust-full-section::before {
+      content: '';
+      position: absolute;
+      width: 650px;
+      height: 650px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 230, 162, 0.12) 0%, transparent 65%);
+      top: -150px;
+      right: -50px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .trust-full-section::after {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 186, 136, 0.08) 0%, transparent 70%);
+      bottom: -120px;
+      left: -100px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ========================================================================= */
+    /* 05. THE TRUST LAYER (FIZENS DESIGN FLOW MATCH) */
+    /* ========================================================================= */
+    .trust-full-section {
+      background-color: #FFFFFF;
+      padding: 90px 0;
+      position: relative;
+    }
+
+    .trust-card-wrapper {
+      background: #F8FAFC;
+      background-image: radial-gradient(rgba(0, 168, 132, 0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+      border: 1.5px solid rgba(226, 232, 240, 0.9);
+      border-radius: 32px;
+      padding: 48px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .trust-title {
+      font-size: clamp(2rem, 3.2vw, 2.75rem);
+      font-weight: 500;
+      color: #0F172A;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .trust-subtitle {
+      font-size: 1.05rem;
+      color: #64748B;
+      font-weight: 400;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+      max-width: 520px;
+    }
+
+    /* 4-Item Clean Modern Feature Cards Grid */
+    .trust-feature-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 20px;
+      padding: 20px 22px;
+      transition: all 0.28s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .trust-feature-card:hover {
+      border-color: #00A884;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0, 168, 132, 0.08);
+    }
+
+    .trust-feature-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .trust-feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: #E8F8EE;
+      color: #075E54;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+    }
+
+    .trust-feature-card:hover .trust-feature-icon {
+      background: #075E54;
+      color: #FFFFFF;
+    }
+
+    .trust-feature-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #0F172A;
+      margin-bottom: 0;
+      letter-spacing: -0.01em;
+    }
+
+    .trust-feature-desc {
+      font-size: 0.88rem;
+      color: #64748B;
+      margin-bottom: 0;
+      line-height: 1.5;
+      font-weight: 400;
+    }
+
+    /* Right Column Console Card */
+    .trust-console-box {
+      background: #FFFFFF;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 24px;
+      padding: 32px 28px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    .trust-console-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #F1F5F9;
+    }
+
+    .trust-console-pill {
+      background: #F0FDF4;
+      border: 1.5px solid #BBF7D0;
+      border-radius: 16px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+
+    .trust-token-code {
+      font-family: 'Space Mono', 'Courier New', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #075E54;
+      letter-spacing: 0.04em;
+    }
+
+    .trust-stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      font-size: 0.92rem;
+      border-bottom: 1px dashed #E2E8F0;
+    }
+
+    .trust-stat-row:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .trust-zero-banner {
+      background: linear-gradient(135deg, #075E54 0%, #00A884 100%);
+      border-radius: 16px;
+      padding: 16px 20px;
+      text-align: center;
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 0.96rem;
+      margin-top: 24px;
+      box-shadow: 0 8px 24px rgba(0, 168, 132, 0.2);
+      letter-spacing: -0.01em;
+      transition: all 0.25s ease;
+    }
+
+    .trust-zero-banner:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0, 168, 132, 0.3);
+    }
+
+    /* ========================================================================= */
+    /* 07. COMPETITIVE COMPARISON SECTION STYLES (ELEVATED HERO MATRIX) */
+    /* ========================================================================= */
+    .adv-card {
+      background: #ffffff;
+      border: 1.5px solid rgba(226, 232, 240, 0.9);
+      border-radius: 20px;
+      padding: 24px 18px 20px;
+      text-align: center;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      transition: all 0.28s ease;
+    }
+
+    .adv-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0, 168, 132, 0.1);
+      border-color: #00A884;
+    }
+
+    .adv-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #E8F8EE;
+      color: #075E54;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 14px;
+      transition: all 0.25s ease;
+    }
+
+    .adv-card:hover .adv-icon {
+      background: #075E54;
+      color: #FFFFFF;
+    }
+
+    .adv-title {
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: #0F172A;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .adv-desc {
+      font-size: 0.84rem;
+      color: #64748B;
+      line-height: 1.45;
+      font-weight: 400;
+      margin-bottom: 0;
+    }
+
+    /* Comparison Table Container & Elevated Matrix */
+    .comp-matrix-card {
+      background: #FFFFFF;
+      border-radius: 28px;
+      padding: 24px;
+      border: 1.5px solid #E2E8F0;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .comp-table {
+      width: 100%;
+      margin-bottom: 0;
+      border-collapse: separate !important;
+      border-spacing: 0;
+    }
+
+    .comp-table thead th {
+      padding: 20px 16px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #334155;
+      border-bottom: 1.5px solid #E2E8F0;
+      background: #FFFFFF;
+      vertical-align: bottom;
+    }
+
+    .comp-table tbody td {
+      padding: 16px 18px;
+      font-size: 0.92rem;
+      vertical-align: middle;
+      border-bottom: 1px solid #F1F5F9;
+    }
+
+    .comp-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Group Header Rows */
+    .comp-group-row td {
+      background: #F8FAFC !important;
+      padding: 12px 18px !important;
+      font-size: 0.76rem !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.06em !important;
+      color: #64748B !important;
+      border-top: 1px solid #E2E8F0 !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+    }
+
+    .comp-table .cap-label {
+      font-weight: 500;
+      color: #0F172A;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.95rem;
+    }
+
+    .comp-table .cap-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #F1F5F9;
+      color: #475569;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .comp-table tbody tr:hover .cap-icon {
+      background: #E8F8EE;
+      color: #075E54;
+    }
+
+    .comp-status-partial {
+      color: #64748B;
+      font-weight: 500;
+      font-size: 0.8rem;
+      background: #F1F5F9;
+      padding: 4px 10px;
+      border-radius: 12px;
+      display: inline-block;
+    }
+
+    .comp-status-check {
+      color: #10B981;
+      font-size: 1.3rem;
+    }
+
+    .comp-status-cross {
+      color: #CBD5E1;
+      font-size: 1.3rem;
+    }
+
+    /* 8tivity Hero Floating Column */
+    .comp-table .col-8tiv {
+      background: #F0FDF4;
+      text-align: center;
+      font-weight: 600;
+      border-left: 1.5px solid rgba(0, 168, 132, 0.35);
+      border-right: 1.5px solid rgba(0, 168, 132, 0.35);
+    }
+
+    .comp-table thead th.col-8tiv {
+      border-top: 1.5px solid rgba(0, 168, 132, 0.35);
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      border-bottom: 2px solid #00A884;
+      background: #E8F8EE;
+      position: relative;
+    }
+
+    .comp-table tbody tr:last-child td.col-8tiv {
+      border-bottom: 1.5px solid rgba(0, 168, 132, 0.35);
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    .comp-status-double-check {
+      color: #00A884;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    /* ========================================================================= */
+    /* 08. FOUNDING TEAM STYLES (FIZENS FLOW MATCH) */
+    /* ========================================================================= */
+    .fizens-team-card {
+      background: #FFFFFF;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 24px;
+      padding: 36px 32px;
+      transition: all 0.28s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .fizens-team-card:hover {
+      transform: translateY(-4px);
+      border-color: #00A884;
+      box-shadow: 0 16px 36px rgba(0, 168, 132, 0.08);
+    }
+
+    .fizens-team-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      background: #E8F8EE;
+      color: #075E54;
+      font-size: 1.3rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      border: 1.5px solid rgba(0, 168, 132, 0.2);
+    }
+
+    .fizens-team-name {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #0F172A;
+      margin-bottom: 4px;
+      letter-spacing: -0.015em;
+    }
+
+    .fizens-team-domain {
+      font-size: 0.96rem;
+      color: #075E54;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .fizens-team-cred {
+      font-size: 0.88rem;
+      color: #64748B;
+      font-weight: 400;
+      margin-bottom: 16px;
+    }
+
+    .fizens-team-desc {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.55;
+      margin-bottom: 0;
+      border-top: 1px dashed #E2E8F0;
+      padding-top: 16px;
+    }
+
+    /* ========================================================================= */
+    /* 09. FINAL CTA SECTION (FIZENS FULL DESIGN MATCH) */
+    /* ========================================================================= */
+    .fizens-final-cta-section {
+      padding: 30px 0 60px;
+      background: #FFFFFF;
+    }
+
+    .fizens-final-cta-wrap {
+      background: radial-gradient(circle at 50% -20%, #1FE1AA 0%, #00A884 36%, #075E54 75%, #033932 100%);
+      border-radius: 44px;
+      padding: 85px 40px 0;
+      text-align: center;
+      color: #FFFFFF;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 168, 132, 0.25);
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .fizens-final-cta-title {
+      font-size: clamp(2.3rem, 4.2vw, 3.6rem);
+      font-weight: 500;
+      color: #FFFFFF;
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .fizens-final-cta-sub {
+      font-size: 1.12rem;
+      color: rgba(255, 255, 255, 0.88);
+      font-weight: 400;
+      max-width: 620px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+      position: relative;
+      z-index: 3;
+    }
+
+    .fizens-cta-white-btn {
+      background: #FFFFFF !important;
+      color: #075E54 !important;
+      padding: 14px 16px 14px 30px !important;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18) !important;
+      font-size: 1.02rem !important;
+      font-weight: 600 !important;
+      position: relative;
+      z-index: 3;
+    }
+
+    .fizens-cta-white-btn:hover {
+      background: #F8FAFC !important;
+      color: #00A884 !important;
+      transform: translateY(-3px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22) !important;
+    }
+
+    /* Left & Right Corner Peeking Cards (Matching Reference) */
+    .fizens-cta-preview-card {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(255, 255, 255, 0.7);
+      border-radius: 24px 24px 0 0;
+      padding: 24px 28px 48px;
+      color: #0F172A;
+      text-align: left;
+      width: 330px;
+      box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.12);
+      transition: all 0.35s ease;
+      position: absolute;
+      bottom: -25px;
+      z-index: 2;
+    }
+
+    .fizens-cta-card-left {
+      left: 50px;
+      transform: rotate(-6deg);
+    }
+
+    .fizens-cta-card-right {
+      right: 50px;
+      transform: rotate(6deg);
+    }
+
+    .fizens-cta-preview-card:hover {
+      bottom: -10px;
+    }
+
+    @media (max-width: 1199.98px) {
+      .fizens-cta-card-left {
+        left: 20px;
+        width: 290px;
+      }
+
+      .fizens-cta-card-right {
+        right: 20px;
+        width: 290px;
+      }
+    }
+
+    @media (max-width: 991.98px) {
+      .fizens-final-cta-wrap {
+        padding: 60px 24px 40px;
+        min-height: auto;
+      }
+
+      .fizens-cta-preview-card {
+        position: static;
+        transform: none !important;
+        width: 100%;
+        max-width: 340px;
+        border-radius: 20px;
+        padding: 22px 24px;
+        margin-top: 16px;
+      }
+
+      .fizens-cta-cards-row {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        align-items: center;
+        margin-top: 24px;
+      }
+    }
+
+    /* ========================================================================= */
+    /* OUR PROVEN WEDGE BANNER STYLES (AFTER HOW IT WORKS) */
+    /* ========================================================================= */
+    .wedge-banner-section {
+      padding: 1.5rem 0 4.5rem;
+      background: #FFFFFF;
+    }
+
+    .wedge-img-wrapper {
+      position: absolute;
+      top: 0;
+      left: -26px;
+
+    }
+
+    .wedge-img-wrapper img {
+      width: 420px;
+    }
+
+    .wedge-banner-box {
+      background: linear-gradient(135deg, #e0f1e9 0%, #b6e0cb 100%);
+      /* border: 1px solid #D6EFE0; */
+      border-radius: 14px;
+      padding: 2.25rem 2rem;
+      box-shadow: 0 10px 30px rgba(0, 168, 132, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wedge-calc-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 16px 20px;
+      border: 1px solid #E2EFE7;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+    }
+
+    .wedge-calc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 0;
+      font-size: 0.88rem;
+    }
+
+    .wedge-calc-divider {
+      height: 1px;
+      background: #F1F5F9;
+      margin: 6px 0;
+    }
+
+    .wedge-benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .wedge-benefit-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .wedge-benefit-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #E8F8EE;
+      border: 1px solid #C5EADA;
+      color: #00A884;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .wedge-benefit-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #0F172A;
+      margin-bottom: 2px;
+      line-height: 1.2;
+    }
+
+    .wedge-benefit-desc {
+      font-size: 0.76rem;
+      color: #64748B;
+      line-height: 1.35;
+      margin-bottom: 0;
+    }
+
+    /* ========================================================================= */
+    /* 08, 09, 10. FOUNDERS, ROADMAP & INFRASTRUCTURE CTA STYLES */
+    /* ========================================================================= */
+    .founder-card-ref {
+      background: #FFFFFF;
+      border-radius: 14px;
+      padding: 24px 28px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: all 0.25s ease;
+    }
+
+    .founder-card-ref:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px rgba(0, 168, 132, 0.12);
+      border-color: rgba(0, 168, 132, 0.35);
+    }
+
+    .founder-avatar-img {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid #E8F8EE;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .founder-info-name {
+      font-size: 1.18rem;
+      font-weight: 800;
+      color: #0F172A;
+      margin-bottom: 2px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+
+    .founder-info-role {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #00A884;
+      margin-bottom: 4px;
+    }
+
+    .founder-info-domain {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 2px;
+      line-height: 1.3;
+    }
+
+    .founder-info-cred {
+      font-size: 0.82rem;
+      color: #64748B;
+      margin-bottom: 0;
+    }
+
+    /* Roadmap Timeline Box */
+    .roadmap-timeline-box {
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 44px 36px 32px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+      position: relative;
+      margin-top: 1.5rem;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .roadmap-badge-top {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #E8F8EE;
+      color: #00A884;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 4px 18px;
+      border-radius: 20px;
+      border: 1px solid #C4ECDA;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    }
+
+    .roadmap-timeline-track {
+      position: relative;
+      padding-top: 10px;
+    }
+
+    .roadmap-track-line {
+      position: absolute;
+      top: 19px;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: #C4ECDA;
+      z-index: 1;
+    }
+
+    .roadmap-steps-flex {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .roadmap-timeline-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .roadmap-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 3;
+    }
+
+    .roadmap-dot.dot-green {
+      background: #00A884;
+      box-shadow: 0 0 0 2px #00A884;
+    }
+
+    .roadmap-dot.dot-gold {
+      background: #E58A1F;
+      box-shadow: 0 0 0 2px #E58A1F;
+    }
+
+    .roadmap-dot.dot-dark {
+      background: #06453D;
+      box-shadow: 0 0 0 2px #06453D;
+    }
+
+    .roadmap-step-quarter {
+      font-size: 1.05rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .quarter-green {
+      color: #075E54;
+    }
+
+    .quarter-gold {
+      color: #C05621;
+    }
+
+    .quarter-dark {
+      color: #032E28;
+    }
+
+    .roadmap-phase-card {
+      background: #EEF8F3;
+      border-radius: 10px;
+      padding: 16px 14px;
+      flex: 1;
+      text-align: left;
+      border: 1px solid rgba(0, 168, 132, 0.08);
+      transition: all 0.25s ease;
+    }
+
+    .roadmap-phase-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .roadmap-phase-card.card-peach {
+      background: #FCF4E9;
+      border-color: rgba(229, 138, 31, 0.15);
+    }
+
+    .roadmap-bullet-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .roadmap-bullet-list li {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #2D3748;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      line-height: 1.35;
+    }
+
+    .roadmap-bullet-list li::before {
+      content: '•';
+      color: #075E54;
+      font-size: 1.1rem;
+      line-height: 0;
+    }
+
+    .roadmap-phase-card.card-peach .roadmap-bullet-list li::before {
+      color: #C05621;
+    }
+
+    .roadmap-footer-caption {
+      color: #075E54;
+      font-style: italic;
+      font-size: 0.92rem;
+      text-align: center;
+      margin-top: 1.75rem;
+      margin-bottom: 0;
+      font-weight: 500;
+    }
+
+    /* Final Infrastructure Banner */
+    .infra-cta-banner {
+      background: radial-gradient(circle at 80% 50%, #06453D 0%, #032E28 50%, #011B17 100%);
+      border-radius: 16px;
+      padding: 2.75rem 3rem;
+      box-shadow: 0 20px 50px rgba(1, 27, 23, 0.35);
+      border: 1px solid rgba(0, 186, 136, 0.2);
+      margin-top: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .infra-brand-disc {
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      background: #00BA88;
+      color: #FFFFFF;
+      font-size: 2.4rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(0, 186, 136, 0.65);
+      flex-shrink: 0;
+    }
+
+    .infra-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .infra-sub {
+      font-size: 1.05rem;
+      color: rgba(255, 255, 255, 0.75);
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+
+    .btn-infra-access {
+      background: #00BA88;
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 10px;
+      padding: 14px 28px;
+      border: none;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(0, 186, 136, 0.35);
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .btn-infra-access:hover {
+      background: #00A678;
+      color: #FFFFFF;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 186, 136, 0.5);
+    }
+
+    .problem-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: #FDF1EF;
+      color: #B65442;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* 10 Failure Points Horizontal Flow */
+    .ten-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 14px;
+    }
+
+    .step-pill {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+
+    .step-pill:hover {
+      border-color: var(--wa-teal);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    .step-pill-num {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #B65442;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .step-pill-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--color-foreground);
+      margin: 0;
+    }
+
+    /* Feature & Architecture Cards */
+    .arch-card {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      padding: 2.25rem 2rem;
+      height: 100%;
+      transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+    }
+
+    .arch-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--wa-dark-green), var(--wa-light-green));
+      transition: width 0.35s ease;
+    }
+
+    .arch-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(18, 140, 126, 0.35);
+      box-shadow: 0 20px 45px rgba(7, 94, 84, 0.1);
+    }
+
+    .arch-card:hover::after {
+      width: 100%;
+    }
+
+    .arch-badge {
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 1.25rem;
+    }
+
+    .arch-badge.monetised {
+      background: #E3F4EB;
+      color: var(--wa-dark-green);
+    }
+
+    .arch-badge.retention {
+      background: #EBF3FA;
+      color: #1A6896;
+    }
+
+    .arch-badge.virality {
+      background: #FFF3E6;
+      color: #9C580B;
+    }
+
+    .arch-badge.trust {
+      background: #F3EAFD;
+      color: #6B2CA3;
+    }
+
+    /* Wedge Section / Token System */
+    .wedge-highlight-box {
+      background: linear-gradient(135deg, #075E54 0%, #0A3D36 100%);
+      color: #FFFFFF;
+      border-radius: 20px;
+      padding: 4rem 3.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(7, 94, 84, 0.3);
+    }
+
+    @media (max-width: 767.98px) {
+      .wedge-highlight-box {
+        padding: 2.5rem 1.75rem;
+      }
+    }
+
+    .token-card-preview {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 16px;
+      padding: 2rem;
+      color: #FFFFFF;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Comparison Table */
+    .comparison-table-wrap {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.04);
+    }
+
+    .comparison-table {
+      margin-bottom: 0;
+    }
+
+    .comparison-table th {
+      background: #F8FAFB;
+      padding: 1.35rem 1.25rem;
+      font-weight: 800;
+      color: var(--color-foreground);
+      border-bottom: 2px solid var(--color-border);
+      font-size: 0.98rem;
+    }
+
+    .comparison-table th.col-8tivity {
+      background: var(--wa-subtle-green);
+      color: var(--wa-dark-green);
+      border-bottom: 2px solid var(--wa-teal);
+    }
+
+    .comparison-table td {
+      padding: 1.2rem 1.25rem;
+      vertical-align: middle;
+      border-bottom: 1px solid #EEF3F0;
+      font-size: 0.94rem;
+    }
+
+    .comparison-table td.col-8tivity {
+      background: rgba(232, 247, 238, 0.45);
+      font-weight: 700;
+      color: var(--wa-dark-green);
+    }
+
+    /* Team Cards */
+    .team-card {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 2.5rem 2.25rem;
+      height: 100%;
+      transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .team-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+      border-color: var(--wa-teal);
+    }
+
+    .team-avatar-placeholder {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--wa-subtle-green) 0%, #D4EFE0 100%);
+      color: var(--wa-dark-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 6px 16px rgba(7, 94, 84, 0.18);
+    }
+
+    /* Roadmap Timeline */
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+    }
+
+    .roadmap-card {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      padding: 2rem 1.75rem;
+      position: relative;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+    }
+
+    .roadmap-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .roadmap-card.active-phase {
+      border: 2px solid var(--wa-teal);
+      background: #FAFDFB;
+      box-shadow: 0 10px 28px rgba(18, 140, 126, 0.12);
+    }
+
+    .roadmap-quarter {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--wa-teal);
+      margin-bottom: 0.85rem;
+    }
+
+    /* Clean Image Placeholder Frame */
+    .img-placeholder-frame {
+      border: 1px solid var(--color-border);
+      background: #FFFFFF;
+      padding: 10px;
+      border-radius: 16px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .img-placeholder-frame:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.1);
+    }
+
+    .img-placeholder-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    /* Statement Section */
+    .statement-banner {
+      background: linear-gradient(135deg, var(--wa-dark-green) 0%, #032E29 100%);
+      color: #FFFFFF;
+      padding-top: calc(var(--section-gap) * 1.3);
+      padding-bottom: calc(var(--section-gap) * 1.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .statement-banner::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(37, 211, 102, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Footer */
+    .site-footer {
+      background-color: var(--color-dark-bg);
+      color: #FFFFFF;
+      padding-top: 5rem;
+      padding-bottom: 2.75rem;
+      font-size: 0.94rem;
+    }
+
+    .site-footer h6 {
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.84rem;
+      font-weight: 800;
+      margin-bottom: 1.35rem;
+    }
+
+    .site-footer a {
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .site-footer a:hover {
+      color: var(--wa-light-green);
+    }
+
+    .social-round-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.09);
+      color: #FFFFFF;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+
+    .social-round-btn:hover {
+      background: var(--wa-emerald);
+      color: #FFFFFF;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0, 168, 132, 0.3);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 2.25rem;
+      margin-top: 4rem;
+      font-size: 0.86rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ========================================================================= -->
+  <!-- 01. HERO SECTION (EXACT FIZENS WEBFLOW ARCHITECTURE) -->
+  <!-- ========================================================================= -->
+  <section id="hero" class="fizens-hero-section">
+    <div class="container position-relative">
+      <div class="fizens-banner-wrapper">
+
+        <!-- Background Ambient SVG Patterns from Fizens -->
+        <img src="assets/fizens-pattern-1.svg" alt="" class="fizens-pattern-one" />
+        <img src="assets/fizens-pattern-2.svg" alt="" class="fizens-pattern-two" />
+
+        <div class="fizens-banner-contant-wrap">
+          <div class="fizens-banner-flex">
+
+            <!-- LEFT WRAP: Title & Action Button -->
+            <div class="fizens-left-wrap" data-aos="fade-right">
+              <div class="fizens-title-wrap">
+                <h1 class="fizens-banner-title">Start Managing<br>Your Community</h1>
+              </div>
+              <div class="fizens-title-flex">
+                <div class="fizens-title-divider"></div>
+                <h1 class="fizens-title-grey">With 8tivity</h1>
+              </div>
+
+              <div class="fizens-btn-wrapper">
+                <a href="https://wa.me/?text=Hi%208tivity,%20I%20want%20to%20start%20managing%20my%20community"
+                  target="_blank" rel="noopener noreferrer" class="fizens-primary-btn">
+                  <span>Get Started Free</span>
+                  <div class="fizens-btn-icon-wrap">
+                    <i class="ri-arrow-right-up-line fs-5 text-white"></i>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <!-- RIGHT WRAP: Plus Icon, Description & Social Proof -->
+            <div class="fizens-right-wrap" data-aos="fade-left">
+              <div class="fizens-plus-wrap">
+                <i class="ri-add-line fs-2 text-success"></i>
+              </div>
+
+              <p class="fizens-banner-details">
+                Simplify your community coordination. Our WhatsApp-native workflow makes collecting payments, locking
+                RSVPs, and eliminating dropouts effortless.
+              </p>
+
+              <div class="fizens-counter-flex">
+                <div class="fizens-client-stack">
+                  <img src="assets/fizens-client-1.svg" alt="Member" class="fizens-client-img" />
+                  <img src="assets/fizens-client-2.svg" alt="Member" class="fizens-client-img" />
+                  <img src="assets/fizens-client-3.svg" alt="Member" class="fizens-client-img" />
+                </div>
+                <div class="fizens-count-text">500+</div>
+              </div>
+              <p class="fizens-client-sub">
+                Trusted by community organizers, turf clubs & creators across India.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- CENTER OVERLAY: Exact 3D Angled Smartphone from Fizens Template -->
+          <div class="fizens-phone-overlay-wrap" data-aos="zoom-in" data-aos-delay="100">
+            <img src="assets/fizens-phone.png" alt="8tivity Mobile Experience" class="fizens-phone-image" />
+          </div>
+        </div>
+
+        <!-- LOWER CURVED PARTNER CARD (WhatsApp Emerald/Teal Theme with Marquee Ticker) -->
+        <div class="fizens-partner-card" data-aos="fade-up" data-aos-delay="200">
+          <!-- Animated Translucent Watermark Ticker -->
+          <div class="fizens-ticker-wrapper">
+            <div class="fizens-ticker-track">
+              <span class="fizens-ticker-item">COMMUNITY COORDINATION</span>
+              <span class="fizens-ticker-item">•</span>
+              <span class="fizens-ticker-item">0% COMMISSION</span>
+              <span class="fizens-ticker-item">•</span>
+              <span class="fizens-ticker-item">INSTANT UPI</span>
+              <span class="fizens-ticker-item">•</span>
+              <span class="fizens-ticker-item">COMMUNITY COORDINATION</span>
+              <span class="fizens-ticker-item">•</span>
+              <span class="fizens-ticker-item">0% COMMISSION</span>
+              <span class="fizens-ticker-item">•</span>
+              <span class="fizens-ticker-item">INSTANT UPI</span>
+              <span class="fizens-ticker-item">•</span>
+            </div>
+          </div>
+
+          <div class="fizens-partner-content pt-5">
+            <h3 class="fizens-partner-title">
+              Powering modern community events, sports clubs & creator gatherings across India.
+            </h3>
+
+            <div class="fizens-logos-flex">
+              <div class="fizens-badge-item"><i class="ri-football-line  fs-5"></i> Turf & Sports Clubs</div>
+              <div class="fizens-badge-item"><i class="ri-graduation-cap-line fs-5"></i> Creator Masterclasses</div>
+              <div class="fizens-badge-item"><i class="ri-restaurant-line  fs-5"></i> Supper Clubs & Dining</div>
+              <div class="fizens-badge-item"><i class="ri-run-line  fs-5"></i> Run & Fitness Clubs</div>
+              <div class="fizens-badge-item"><i class="ri-music-2-line  fs-5"></i> Jams & Socials</div>
+              <div class="fizens-badge-item"><i class="ri-shield-check-line  fs-5"></i> Direct UPI • 0% Fees</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 02. THE PROBLEM VS THE SOLUTION (FIZENS DESIGN SYSTEM MATCH) -->
+  <!-- ========================================================================= -->
+  <section id="problem" class="page-section bg-light-mesh">
+    <div class="container">
+
+      <!-- Section Header -->
+      <div class="row justify-content-center text-center mb-5" data-aos="fade-up">
+        <div class="col-lg-8">
+
+          <h2 class="fizens-section-title">
+            Communities start in chat.<br><span class="fizens-green-accent">Managing them shouldn't be chaos.</span>
+          </h2>
+          <p class="fizens-section-sub">
+            Organizers waste hours chasing payments and managing spreadsheets. 8tivity transforms manual chaos into
+            clean coordination.
+          </p>
+        </div>
+      </div>
+
+      <!-- Side-by-Side Comparison Container -->
+      <div class="position-relative">
+        <div class="row g-4 align-items-stretch">
+
+          <!-- LEFT CARD: The Problem: The Organiser Tax -->
+          <div class="col-lg-6" data-aos="fade-right" data-aos-duration="850">
+            <div class="vs-card problem-card-wrap">
+              <div class="row g-3 align-items-center h-100">
+                <!-- Card Header -->
+                <div class="col-12">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <h3 class="vs-title mb-0">
+                      <span class="text-problem-red">The Problem:</span> The Organiser Tax
+                    </h3>
+                    <span class="badge bg-danger bg-opacity-10 text-danger fw-semibold px-3 py-1"
+                      style="font-size: 0.78rem; border-radius: 20px;">
+                      <i class="ri-fire-line me-1"></i>High Friction
+                    </span>
+                  </div>
+                  <p class="vs-subtitle mb-3">
+                    Running a community means too many things can go wrong.
+                  </p>
+                </div>
+
+                <!-- Left: Problem List -->
+                <div class="col-sm-6">
+                  <ul class="list-unstyled vs-list vs-list-problem mb-0">
+                    <li>
+                      <span class="vs-icon-badge problem-icon"><i class="ri-close-line"></i></span>
+                      <span>100s of Unread Chats</span>
+                    </li>
+                    <li>
+                      <span class="vs-icon-badge problem-icon"><i class="ri-close-line"></i></span>
+                      <span>Fake Payment Proofs</span>
+                    </li>
+                    <li>
+                      <span class="vs-icon-badge problem-icon"><i class="ri-close-line"></i></span>
+                      <span>Manual Spreadsheets</span>
+                    </li>
+                    <li>
+                      <span class="vs-icon-badge problem-icon"><i class="ri-close-line"></i></span>
+                      <span>Endless Follow-up Calls</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Right: Stressed Organizer with Ambient Glow & Floating Badge -->
+                <div class="col-sm-6">
+                  <div class="vs-img-wrapper">
+                    <div class="vs-ambient-glow glow-problem"></div>
+                    <img src="./assets/1.png" alt="The Problem - Organiser Tax" class="img-fluid vs-art-img">
+                    <div class="vs-float-chip chip-problem-1">
+                      <i class="ri-error-warning-fill text-danger me-1"></i> 100s of Unread Chats
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT CARD: The Solution: 8tivity -->
+          <div class="col-lg-6" data-aos="fade-left" data-aos-duration="850">
+            <div class="vs-card solution-card-wrap">
+              <div class="row g-3 align-items-center h-100">
+                <!-- Card Header -->
+                <div class="col-12">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <h3 class="vs-title mb-0">
+                      <span class="text-solution-green">The Solution:</span> 8tivity
+                    </h3>
+                    <span class="badge bg-success bg-opacity-10 text-success fw-semibold px-3 py-1"
+                      style="font-size: 0.78rem; border-radius: 20px;">
+                      <i class="ri-shield-check-line me-1"></i>Zero Friction
+                    </span>
+                  </div>
+                  <p class="vs-subtitle mb-3">
+                    Structure, without changing how communities behave.
+                  </p>
+                </div>
+
+                <!-- Left: Solution List -->
+                <div class="col-sm-6">
+                  <ul class="list-unstyled vs-list vs-list-solution mb-0">
+                    <li>
+                      <span class="vs-icon-badge solution-icon"><i class="ri-check-line"></i></span>
+                      <span>1-Click WhatsApp Setup</span>
+                    </li>
+                    <li>
+                      <span class="vs-icon-badge solution-icon"><i class="ri-check-line"></i></span>
+                      <span>Instant UPI Verification</span>
+                    </li>
+                    <li>
+                      <span class="vs-icon-badge solution-icon"><i class="ri-check-line"></i></span>
+                      <span>Live Organizer Dashboard</span>
+                    </li>
+                    <li>
+                      <span class="vs-icon-badge solution-icon"><i class="ri-check-line"></i></span>
+                      <span>100% Automated RSVPs</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Right: Happy Organizer with Ambient Glow & Floating Badge -->
+                <div class="col-sm-6">
+                  <div class="vs-img-wrapper">
+                    <div class="vs-ambient-glow glow-solution"></div>
+                    <img src="./assets/2.png" alt="The Solution - 8tivity Coordination" class="img-fluid vs-art-img">
+                    <div class="vs-float-chip chip-solution-1">
+                      <i class="ri-checkbox-circle-fill text-success me-1"></i> 100% Automated
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Center Floating Connector Arrow -->
+        <div class="vs-center-arrow-circle d-none d-lg-flex" title="From Chaos to Clean Coordination">
+          <i class="ri-arrow-right-line"></i>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 03. HOW 8TIVITY WORKS (EXACT REFERENCE DESIGN MATCH) -->
+  <!-- ========================================================================= -->
+  <section id="solution" class="page-section bg-white position-relative">
+    <div class="container">
+
+      <!-- Section Header -->
+      <div class="row justify-content-center text-center mb-5" data-aos="fade-up">
+        <div class="col-lg-8">
+          <h2 class="fizens-section-title">
+            From chaos to <span class="fizens-green-accent">clean coordination.</span>
+          </h2>
+          <p class="fizens-section-sub">
+            Transform messy WhatsApp group chats into structured, automated event pipelines in 4 effortless steps. No app downloads or steep learning curve required.
+          </p>
+        </div>
+      </div>
+
+      <!-- 4-Step Horizontal Process Row -->
+      <div class="row g-4 g-lg-5 justify-content-center">
+
+        <!-- Step 1: Create in WhatsApp -->
+        <div class="col-sm-6 col-lg-3 position-relative" data-aos="fade-up" data-aos-delay="100">
+          <div class="flow-step-box">
+            <img src="./assets/step1.jpg" alt="Create in WhatsApp" class="flow-step-img">
+          </div>
+          <div class="flow-step-footer">
+            <div class="flow-num-circle">1</div>
+            <div>
+              <h4 class="flow-step-title">Create</h4>
+              <div class="flow-step-sub">in WhatsApp</div>
+            </div>
+          </div>
+
+          <!-- Connector Arrow -->
+          <div class="flow-arrow-divider d-none d-lg-block">
+            <i class="ri-arrow-right-line"></i>
+          </div>
+        </div>
+
+        <!-- Step 2: Share Flow Link -->
+        <div class="col-sm-6 col-lg-3 position-relative" data-aos="fade-up" data-aos-delay="200">
+          <div class="flow-step-box bg-white">
+            <div class="p-3 w-100 d-flex flex-column align-items-center justify-content-center text-center">
+              <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill border text-dark fw-bold mb-3"
+                style="font-size: 0.78rem; background: #F0FDFA !important; border-color: #CCFBF1 !important; color: #0F766E !important;">
+                <i class="ri-link text-success"></i> 8tivity.link/football
+              </div>
+              <button class="btn text-white fw-bold px-4 py-2 rounded-pill mb-3 shadow-sm"
+                style="background: #00A884; font-size: 0.85rem; border: none; cursor: default;">
+                Share
+              </button>
+              <div class="d-flex align-items-center gap-2">
+                <div
+                  class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center shadow-sm"
+                  style="width: 34px; height: 34px;"><i class="ri-whatsapp-fill"></i></div>
+                <div class="rounded-circle text-white d-flex align-items-center justify-content-center shadow-sm"
+                  style="width: 34px; height: 34px; background: #0088CC;"><i class="ri-telegram-fill"></i></div>
+                <div class="rounded-circle text-white d-flex align-items-center justify-content-center shadow-sm"
+                  style="width: 34px; height: 34px; background: #64748B;"><i class="ri-links-line"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="flow-step-footer">
+            <div class="flow-num-circle">2</div>
+            <div>
+              <h4 class="flow-step-title">Share</h4>
+              <div class="flow-step-sub">Flow Link</div>
+            </div>
+          </div>
+
+          <!-- Connector Arrow -->
+          <div class="flow-arrow-divider d-none d-lg-block">
+            <i class="ri-arrow-right-line"></i>
+          </div>
+        </div>
+
+        <!-- Step 3: Members RSVP & Pay via UPI -->
+        <div class="col-sm-6 col-lg-3 position-relative" data-aos="fade-up" data-aos-delay="300">
+          <div class="flow-step-box">
+            <img src="./assets/step3.jpg" alt="Members RSVP & Pay via UPI" class="flow-step-img">
+          </div>
+          <div class="flow-step-footer">
+            <div class="flow-num-circle">3</div>
+            <div>
+              <h4 class="flow-step-title">Members RSVP</h4>
+              <div class="flow-step-sub">& Pay via UPI</div>
+            </div>
+          </div>
+
+          <!-- Connector Arrow -->
+          <div class="flow-arrow-divider d-none d-lg-block">
+            <i class="ri-arrow-right-line"></i>
+          </div>
+        </div>
+
+        <!-- Step 4: Live Records & Settlement -->
+        <div class="col-sm-6 col-lg-3 position-relative" data-aos="fade-up" data-aos-delay="400">
+          <div class="flow-step-box">
+            <img src="./assets/step4.jpg" alt="Live Organizer Dashboard" class="flow-step-img">
+          </div>
+          <div class="flow-step-footer">
+            <div class="flow-num-circle">4</div>
+            <div>
+              <h4 class="flow-step-title">You're all set</h4>
+              <div class="flow-step-sub">with verified records</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+
+  <!-- ========================================================================= -->
+  <!-- 04. PRODUCT ARCHITECTURE: 2X2 BENTO GRID MATCHING FIZENS -->
+  <!-- ========================================================================= -->
+  <section id="architecture" class="page-section ">
+    <div class="container">
+      <div class="row justify-content-center text-center mb-5" data-aos="fade-up">
+        <div class="col-lg-8">
+          <h2 class="fizens-section-title">
+            Built for every <span class="fizens-green-accent">kind of community.</span>
+          </h2>
+          <p class="fizens-section-sub">
+            We deliberately built one robust infrastructure instead of five separate products. Every use case is a
+            coordination problem — solved on the same WhatsApp engine.
+          </p>
+        </div>
+      </div>
+
+      <!-- Exact 2x2 Bento Grid with Reference Content -->
+      <div class="fizens-bento-grid" data-aos="fade-up" data-aos-delay="100">
+
+        <!-- 01. Activity Events (Top Left) -->
+        <div class="fizens-bento-card">
+          <div class="bento-card-hub-preview">
+            <!-- Floating Category Nodes -->
+            <div class="bento-node-icon node-top-left"><i class="ri-football-fill text-success"></i></div>
+            <div class="bento-node-icon node-top-mid"><i class="ri-calendar-event-fill text-primary"></i></div>
+            <div class="bento-node-icon node-top-right"><i class="ri-run-fill text-dark"></i></div>
+            <div class="bento-node-icon node-bottom-left"><i class="ri-gamepad-fill text-warning"></i></div>
+            <div class="bento-node-icon node-bottom-right"><i class="ri-shield-check-fill text-success"></i></div>
+
+            <!-- Central 8tivity Card -->
+            <div class="bento-mini-card">
+              <div class="bento-mini-card-head">
+                <span>Activity Events</span>
+                <i class="ri-calendar-event-line"></i>
+              </div>
+              <div class="bento-mini-card-bal">16/16 Slots</div>
+              <div class="bento-mini-card-sub">Automated RSVP • Split Costs</div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="bento-title">Activity Events</h3>
+            <p class="bento-desc">Turf football, badminton, running groups & board games with automated RSVP, slot
+              limits, and split costs.</p>
+          </div>
+        </div>
+
+        <!-- 02. Workshops & Recurring Classes (Top Right) -->
+        <div class="fizens-bento-card">
+          <div>
+            <h3 class="bento-title">Workshops & Recurring Classes</h3>
+            <p class="bento-desc">Masterclasses, seminars & skill bootcamps with instant tickets, plus yoga, fitness &
+              coaching with monthly cycle dues.</p>
+          </div>
+
+          <div class="bento-goals-stack">
+            <div class="bento-goal-item">
+              <div class="d-flex align-items-center">
+                <div class="bento-goal-icon" style="background: #EBF3FF; color: #1D4ED8;">
+                  <i class="ri-graduation-cap-fill"></i>
+                </div>
+                <div>
+                  <div class="fw-bold text-dark" style="font-size: 0.95rem;">Workshops & Seminars</div>
+                  <div class="text-muted" style="font-size: 0.78rem;">Full fee, token payments & QR tickets</div>
+                </div>
+              </div>
+              <div class="text-end">
+                <span class="badge bg-primary bg-opacity-10 text-primary  p-2"
+                  style="border-radius: 20px; font-size: 0.75rem;">Instant Pass</span>
+              </div>
+            </div>
+
+            <div class="bento-goal-item">
+              <div class="d-flex align-items-center">
+                <div class="bento-goal-icon" style="background: #E8F8EE; color: #075E54;">
+                  <i class="ri-repeat-2-line"></i>
+                </div>
+                <div>
+                  <div class="fw-bold text-dark" style="font-size: 0.95rem;">Recurring Classes</div>
+                  <div class="text-muted" style="font-size: 0.78rem;">Yoga, dance & coaching cycle dues</div>
+                </div>
+              </div>
+              <div class="text-end">
+                <span class="badge bg-success bg-opacity-10 text-success p-2"
+                  style="border-radius: 20px; font-size: 0.75rem;">Auto-Tracked</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 03. Private Donations & Donation Goals (Bottom Left) -->
+        <div class="fizens-bento-card">
+          <div>
+            <h3 class="bento-title">Private Donations & Donation Goals</h3>
+            <p class="bento-desc">Society maintenance, festival funds, alumni pools, and NGO fundraisers with live
+              target progress meters and full transparency.</p>
+          </div>
+
+          <div class="bento-goals-stack mt-3">
+            <div class="bento-goal-item">
+              <div class="d-flex align-items-center">
+                <div class="bento-goal-icon" style="background: #FFF1F2; color: #E11D48;">
+                  <i class="ri-heart-3-fill"></i>
+                </div>
+                <div>
+                  <div class="fw-bold text-dark" style="font-size: 0.95rem;">Society & Festival Pool</div>
+                  <div class="text-muted" style="font-size: 0.78rem;">Maintenance & alumni collections</div>
+                </div>
+              </div>
+              <div class="text-end">
+                <span class="badge bg-danger bg-opacity-10 text-danger p-2"
+                  style="border-radius: 20px; font-size: 0.75rem;">Audit Trail</span>
+              </div>
+            </div>
+
+            <div class="bento-goal-item">
+              <div class="d-flex align-items-center">
+                <div class="bento-goal-icon" style="background: #F0FDF4; color: #16A34A;">
+                  <i class="ri-focus-3-fill"></i>
+                </div>
+                <div>
+                  <div class="fw-bold text-dark" style="font-size: 0.95rem;">NGO & Fundraiser Goals</div>
+                  <div class="text-muted" style="font-size: 0.78rem;">Live target progress meters • 0% commission</div>
+                </div>
+              </div>
+              <div class="text-end">
+                <span class="badge bg-success bg-opacity-10 text-success p-2"
+                  style="border-radius: 20px; font-size: 0.75rem;">Live Meter</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 04. Vibrant CTA Card (Bottom Right) -->
+        <div class="fizens-bento-card fizens-bento-cta">
+          <!-- Background Abstract Emblem -->
+          <svg class="bento-cta-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M50 0C50 27.6142 27.6142 50 0 50C27.6142 50 50 72.3858 50 100C50 72.3858 72.3858 50 100 50C72.3858 50 50 27.6142 50 0Z"
+              fill="white" />
+          </svg>
+
+          <div>
+            <h3 class="bento-title">Built for Every Community</h3>
+            <p class="bento-desc">One robust WhatsApp infrastructure for activity events, workshops, recurring batches &
+              community pools.</p>
+          </div>
+
+          <div>
+            <a href="https://wa.me/?text=Hi%208tivity,%20I%20want%20to%20start%20managing%20my%20community"
+              target="_blank" rel="noopener noreferrer" class="fizens-primary-btn bento-pill-btn">
+              <span>Get Started Free</span>
+              <div class="fizens-btn-icon-wrap">
+                <i class="ri-arrow-right-up-line fs-5 text-white"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 05. OUR WEDGE: A ₹200 TOKEN CHANGES BEHAVIOR MORE THAN 10 REMINDERS -->
+  <!-- ========================================================================= -->
+
+
+
+  <!-- ========================================================================= -->
+  <!-- 06. THE TRUST LAYER (FIZENS DESIGN FLOW MATCH: 4 POINTERS & LEFT GRAPHIC) -->
+  <!-- ========================================================================= -->
+  <section id="trust" class="page-section bg-white">
+    <div class="container">
+
+      <!-- Section Header (On Top: Heading & Description) -->
+      <div class="row justify-content-center text-center mb-5" data-aos="fade-up">
+        <div class="col-lg-8">
+          <h2 class="fizens-section-title">
+            Built on trust. <span class="fizens-green-accent">Because communities run on it.</span>
+          </h2>
+          <p class="fizens-section-sub">
+            Every rupee, seat, and transaction is cryptographically verifiable directly on UPI with zero settlement
+            latency.
+          </p>
+        </div>
+      </div>
+
+      <!-- 2-Column: Left Side Image Placeholder, Right Side 4 Pointer Steps -->
+      <div class="fizens-work-wrapper" data-aos="fade-up" data-aos-delay="100">
+
+        <!-- Left Column: Image / Interactive Console Placeholder -->
+        <div class="fizens-work-phone-wrap" style="padding: 36px 30px;">
+          <div class="trust-console-box w-100" style="max-width: 380px;">
+
+            <!-- Console Header -->
+            <div class="trust-console-header">
+              <div class="d-flex align-items-center gap-2">
+                <div class="brand-logo-icon"
+                  style="width: 30px; height: 30px; font-size: 0.95rem; border-radius: 8px; padding: 0;">8</div>
+                <span class="fw-bold text-dark" style="font-size: 1.05rem;">UPI Audit Console</span>
+              </div>
+              <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-1"
+                style="font-size: 0.75rem; border-radius: 20px;">
+                <i class="ri-checkbox-circle-fill me-1"></i>Live Sync
+              </span>
+            </div>
+
+            <!-- Verification Token Box -->
+            <div class="trust-console-pill">
+              <div class="d-flex align-items-center gap-2">
+                <i class="ri-shield-check-fill text-success fs-4"></i>
+                <div>
+                  <small class="text-muted d-block"
+                    style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700;">Audit
+                    Token Hash</small>
+                  <span class="trust-token-code">PAY-FT4821-M4X8</span>
+                </div>
+              </div>
+              <span class="badge bg-white text-dark border shadow-sm px-2 py-1"
+                style="font-size: 0.72rem; border-radius: 6px;">Verified</span>
+            </div>
+
+            <!-- Console Breakdown Stats -->
+            <div class="trust-stat-row">
+              <span class="text-muted">Payment Channel</span>
+              <span class="fw-bold text-dark"><i class="ri-bank-card-line text-success me-1"></i>Direct UPI / QR</span>
+            </div>
+            <div class="trust-stat-row">
+              <span class="text-muted">Platform Intermediary Fee</span>
+              <span class="fw-bold text-success" style="color: #00A884 !important;">0.00% Always</span>
+            </div>
+            <div class="trust-stat-row">
+              <span class="text-muted">Reconciliation Latency</span>
+              <span class="fw-bold text-dark">&lt; 400ms Instant</span>
+            </div>
+            <div class="trust-stat-row">
+              <span class="text-muted">Seat Lock Integrity</span>
+              <span class="fw-bold text-dark"><i class="ri-lock-2-line text-success me-1"></i>100% Immutable</span>
+            </div>
+
+            <!-- Zero Commission Banner -->
+            <div class="trust-zero-banner">
+              0% Commission &nbsp;•&nbsp; Zero Settlement Delay
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right Column: Vertical Timeline Stepper (4 Titles & Descriptions) -->
+        <div class="fizens-timeline-track">
+
+          <!-- Pointer 1 -->
+          <div class="fizens-timeline-step">
+            <div class="fizens-timeline-num">1</div>
+            <div class="fizens-timeline-content">
+              <h3>Every Payment Verified</h3>
+              <p>Automatic UPI transaction verification with instant proof and cryptographic token hashes.</p>
+            </div>
+          </div>
+
+          <!-- Pointer 2 -->
+          <div class="fizens-timeline-step">
+            <div class="fizens-timeline-num">2</div>
+            <div class="fizens-timeline-content">
+              <h3>Direct to Your UPI</h3>
+              <p>100% of money flows directly into your personal or business UPI. Zero holding periods.</p>
+            </div>
+          </div>
+
+          <!-- Pointer 3 -->
+          <div class="fizens-timeline-step">
+            <div class="fizens-timeline-num">3</div>
+            <div class="fizens-timeline-content">
+              <h3>Unique Audit Codes</h3>
+              <p>Tamper-proof alphanumeric hashes generated for every confirmed seat, batch pass, and deposit.</p>
+            </div>
+          </div>
+
+          <!-- Pointer 4 (Active / Highlighted) -->
+          <div class="fizens-timeline-step active">
+            <div class="fizens-timeline-num">4</div>
+            <div class="fizens-timeline-content">
+              <h3>Export Anytime (CSV / PDF)</h3>
+              <p>Instant one-click reconciliation exports and audit trails for clean accounting and books.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 07. COMPETITIVE ADVANTAGE / COMPARISON TABLE (FIZENS DESIGN FLOW) -->
+  <!-- ========================================================================= -->
+  <section id="comparison" class="page-section bg-light-mesh">
+    <div class="container">
+
+      <!-- Section Header (No Badge, Matching Website Flow) -->
+      <div class="row justify-content-center text-center mb-5" data-aos="fade-up">
+        <div class="col-lg-8">
+          <h2 class="fizens-section-title">
+            Everyone owns a piece. <span class="fizens-green-accent">Nobody owns the workflow.</span>
+          </h2>
+          <p class="fizens-section-sub">
+            Ticketing platforms charge 5–10% and own your audience. 8tivity charges zero commission — the creator keeps
+            the money and the relationship.
+          </p>
+        </div>
+      </div>
+
+      <!-- 5 Competitive Advantage Feature Cards with Deep Saturated Badges & White Icons -->
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-3 mb-5" data-aos="fade-up"
+        data-aos-delay="100">
+
+        <!-- 1. Creator First (Deep Emerald) -->
+        <div class="col">
+          <div class="adv-card">
+            <div class="adv-icon"
+              style="background: #00A884; color: #FFFFFF; box-shadow: 0 4px 14px rgba(0, 168, 132, 0.3);">
+              <i class="ri-shield-user-line"></i>
+            </div>
+            <h4 class="adv-title">Creator First</h4>
+            <p class="adv-desc">You own your community and the relationship.</p>
+          </div>
+        </div>
+
+        <!-- 2. Zero Commission (Deep Amber / Gold) -->
+        <div class="col">
+          <div class="adv-card">
+            <div class="adv-icon"
+              style="background: #D97706; color: #FFFFFF; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.3);">
+              <i class="ri-money-rupee-circle-line"></i>
+            </div>
+            <h4 class="adv-title">Zero Commission</h4>
+            <p class="adv-desc">Keep 100% of what your community gives.</p>
+          </div>
+        </div>
+
+        <!-- 3. Full Transparency (Deep Indigo / Blue) -->
+        <div class="col">
+          <div class="adv-card">
+            <div class="adv-icon"
+              style="background: #2563EB; color: #FFFFFF; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);">
+              <i class="ri-eye-line"></i>
+            </div>
+            <h4 class="adv-title">Full Transparency</h4>
+            <p class="adv-desc">Live rosters and auditable ledger codes.</p>
+          </div>
+        </div>
+
+        <!-- 4. Works in WhatsApp (Deep WhatsApp Teal) -->
+        <div class="col">
+          <div class="adv-card">
+            <div class="adv-icon"
+              style="background: #075E54; color: #FFFFFF; box-shadow: 0 4px 14px rgba(7, 94, 84, 0.3);">
+              <i class="ri-whatsapp-line"></i>
+            </div>
+            <h4 class="adv-title">Works in WhatsApp</h4>
+            <p class="adv-desc">Zero app download for members or creators.</p>
+          </div>
+        </div>
+
+        <!-- 5. Built for Communities (Deep Purple / Violet) -->
+        <div class="col">
+          <div class="adv-card">
+            <div class="adv-icon"
+              style="background: #7C3AED; color: #FFFFFF; box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);">
+              <i class="ri-community-line"></i>
+            </div>
+            <h4 class="adv-title">Built for Communities</h4>
+            <p class="adv-desc">Designed for repeat events and trust.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Comparison Matrix Table Card with Grouped Clusters -->
+      <div class="comp-matrix-card mb-5" data-aos="fade-up" data-aos-delay="200">
+        <div class="table-responsive">
+          <table class="table comp-table align-middle">
+            <thead>
+              <tr>
+                <th scope="col" style="width: 26%;" class="text-uppercase"
+                  style="color: #075E54; font-weight: 700; letter-spacing: 0.05em;">Capability Breakdown</th>
+
+                <!-- WhatsApp Groups -->
+                <th scope="col" class="text-center" style="width: 14%;">
+                  <div class="d-flex flex-column align-items-center gap-1">
+                    <div class="rounded-circle d-flex align-items-center justify-content-center"
+                      style="width: 32px; height: 32px; background: #E8F8EE; color: #25D366;">
+                      <i class="ri-whatsapp-fill fs-5"></i>
+                    </div>
+                    <div class="fw-semibold text-dark small mt-1">WhatsApp</div>
+                    <small class="text-muted" style="font-size: 0.7rem;">Groups</small>
+                  </div>
+                </th>
+
+                <!-- Google Forms -->
+                <th scope="col" class="text-center" style="width: 14%;">
+                  <div class="d-flex flex-column align-items-center gap-1">
+                    <div class="rounded-circle d-flex align-items-center justify-content-center"
+                      style="width: 32px; height: 32px; background: #F3E8FF; color: #7C3AED;">
+                      <i class="ri-file-list-3-fill fs-5"></i>
+                    </div>
+                    <div class="fw-semibold text-dark small mt-1">Google</div>
+                    <small class="text-muted" style="font-size: 0.7rem;">Forms</small>
+                  </div>
+                </th>
+
+                <!-- Ticketing Platforms -->
+                <th scope="col" class="text-center" style="width: 15%;">
+                  <div class="d-flex flex-column align-items-center gap-1">
+                    <div class="rounded-circle d-flex align-items-center justify-content-center"
+                      style="width: 32px; height: 32px; background: #FFEDD5; color: #F97316;">
+                      <i class="ri-coupon-fill fs-5"></i>
+                    </div>
+                    <div class="fw-semibold text-dark small mt-1">Ticketing</div>
+                    <small class="text-muted" style="font-size: 0.7rem;">Platforms</small>
+                  </div>
+                </th>
+
+                <!-- Payment Links -->
+                <th scope="col" class="text-center" style="width: 14%;">
+                  <div class="d-flex flex-column align-items-center gap-1">
+                    <div class="rounded-circle d-flex align-items-center justify-content-center"
+                      style="width: 32px; height: 32px; background: #DBEAFE; color: #2563EB;">
+                      <i class="ri-link-m fs-5"></i>
+                    </div>
+                    <div class="fw-semibold text-dark small mt-1">Payment</div>
+                    <small class="text-muted" style="font-size: 0.7rem;">Gateways</small>
+                  </div>
+                </th>
+
+                <!-- 8tivity Column (Elevated Hero) -->
+                <th scope="col" class="text-center col-8tiv" style="width: 17%;">
+                  <div class="d-flex flex-column align-items-center gap-1">
+                    <span class="badge bg-success bg-opacity-20 text-success fw-bold px-2 py-1 mb-1"
+                      style="font-size: 0.68rem; border-radius: 12px; letter-spacing: 0.04em;">THE COMPLETE OS</span>
+                    <div class="d-flex align-items-center gap-1">
+                      <div class="brand-logo-icon"
+                        style="width: 24px; height: 24px; font-size: 0.85rem; border-radius: 6px; padding: 0;">8</div>
+                      <span class="fw-bold fs-6 text-dark" style="color: #075E54 !important;">8tivity</span>
+                    </div>
+                    <small class="text-success fw-semibold" style="font-size: 0.72rem;">0% Commission</small>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <!-- 1. Structured RSVP -->
+              <tr>
+                <td>
+                  <div class="cap-label">
+                    <div class="cap-icon"><i class="ri-calendar-check-line"></i></div>
+                    <span>Structured RSVP & Slot Caps</span>
+                  </div>
+                </td>
+                <td class="text-center"><span class="comp-status-partial">Partial</span></td>
+                <td class="text-center"><i class="ri-check-line comp-status-check"></i></td>
+                <td class="text-center"><i class="ri-check-line comp-status-check"></i></td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="col-8tiv"><i class="ri-check-double-line comp-status-double-check"></i></td>
+              </tr>
+
+              <!-- 2. Runs 100% Inside WhatsApp -->
+              <tr>
+                <td>
+                  <div class="cap-label">
+                    <div class="cap-icon"><i class="ri-whatsapp-line"></i></div>
+                    <span>Zero App Download (WhatsApp Native)</span>
+                  </div>
+                </td>
+                <td class="text-center"><span class="comp-status-partial">Partial</span></td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="col-8tiv"><i class="ri-check-double-line comp-status-double-check"></i></td>
+              </tr>
+
+              <!-- 3. Live Organizer Dashboard -->
+              <tr>
+                <td>
+                  <div class="cap-label">
+                    <div class="cap-icon"><i class="ri-bar-chart-box-line"></i></div>
+                    <span>Real-time Ledger & Attendance Roster</span>
+                  </div>
+                </td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="text-center"><span class="comp-status-partial">Partial</span></td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="col-8tiv"><i class="ri-check-double-line comp-status-double-check"></i></td>
+              </tr>
+
+              <!-- 4. Direct UPI to Creator -->
+              <tr>
+                <td>
+                  <div class="cap-label">
+                    <div class="cap-icon"><i class="ri-bank-card-line"></i></div>
+                    <span>Direct UPI Settlement (Zero Holding)</span>
+                  </div>
+                </td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="text-center"><span class="comp-status-partial">Partial (3-5 Days)</span></td>
+                <td class="text-center"><i class="ri-check-line comp-status-check"></i></td>
+                <td class="col-8tiv"><i class="ri-check-double-line comp-status-double-check"></i></td>
+              </tr>
+
+              <!-- 5. Token Deposit + Balance Split -->
+              <tr>
+                <td>
+                  <div class="cap-label">
+                    <div class="cap-icon"><i class="ri-coins-line"></i></div>
+                    <span>Token Deposit + Auto Balance Split</span>
+                  </div>
+                </td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="col-8tiv"><i class="ri-check-double-line comp-status-double-check"></i></td>
+              </tr>
+
+              <!-- 6. Platform Commission Fees -->
+              <tr>
+                <td>
+                  <div class="cap-label">
+                    <div class="cap-icon"><i class="ri-percent-line"></i></div>
+                    <span>Platform Commission Fees</span>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <div class="fw-semibold text-dark">0%</div>
+                  <small class="text-muted" style="font-size: 0.7rem;">(Manual)</small>
+                </td>
+                <td class="text-center">
+                  <div class="fw-semibold text-dark">0%</div>
+                  <small class="text-muted" style="font-size: 0.7rem;">(Manual)</small>
+                </td>
+                <td class="text-center">
+                  <span class="badge bg-danger bg-opacity-10 text-danger fw-semibold px-2 py-1">5% – 10% Cut</span>
+                </td>
+                <td class="text-center">
+                  <span class="badge bg-danger bg-opacity-10 text-danger fw-semibold px-2 py-1">2% – 3% Fee</span>
+                </td>
+                <td class="col-8tiv">
+                  <span class="badge bg-success text-white fw-bold px-3 py-1" style="background: #00A884 !important;">0%
+                    Always</span>
+                </td>
+              </tr>
+
+              <!-- 7. Payment Proof Verification -->
+              <tr>
+                <td>
+                  <div class="cap-label">
+                    <div class="cap-icon"><i class="ri-shield-check-line"></i></div>
+                    <span>Automatic UPI Proof Verification</span>
+                  </div>
+                </td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="col-8tiv"><i class="ri-check-double-line comp-status-double-check"></i></td>
+              </tr>
+
+              <!-- 8. Audit Receipts & Codes -->
+              <tr>
+                <td>
+                  <div class="cap-label">
+                    <div class="cap-icon"><i class="ri-receipt-line"></i></div>
+                    <span>Cryptographic Audit Codes & 1-Click CSV</span>
+                  </div>
+                </td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="text-center"><span class="comp-status-partial">Partial</span></td>
+                <td class="text-center"><i class="ri-close-line comp-status-cross"></i></td>
+                <td class="col-8tiv"><i class="ri-check-double-line comp-status-double-check"></i></td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 08. FOUNDING TEAM (FIZENS DESIGN FLOW) -->
+  <!-- ========================================================================= -->
+  <section id="team" class="page-section bg-white">
+    <div class="container">
+
+      <!-- Section Header (No Badge, Matching Website Flow) -->
+      <div class="row justify-content-center text-center mb-5" data-aos="fade-up">
+        <div class="col-lg-8">
+          <h2 class="fizens-section-title">
+            30+ years building <span class="fizens-green-accent">mission-critical systems.</span>
+          </h2>
+          <p class="fizens-section-sub">
+            Combining operations, payments, and technology to solve a real community problem.
+          </p>
+        </div>
+      </div>
+
+      <!-- Founders 2-Card Row -->
+      <div class="row g-4 justify-content-center mb-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="col-lg-10">
+          <div class="row g-4 justify-content-center">
+
+            <!-- Founder 1: Sarvesh Sunil Kargutkar -->
+            <div class="col-md-6">
+              <div class="fizens-team-card">
+                <div>
+                  <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div class="fizens-team-avatar">SK</div>
+                    <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-1"
+                      style="border-radius: 20px; font-size: 0.78rem;">Founder</span>
+                  </div>
+                  <h3 class="fizens-team-name">Sarvesh Sunil Kargutkar</h3>
+                  <div class="fizens-team-domain">Operations & Logistics</div>
+                  <div class="fizens-team-cred">IIM Ahmedabad AGMP • 20+ Yrs</div>
+                </div>
+                <p class="fizens-team-desc">
+                  20+ years steering mission-critical operations, supply-chain scale, and ground community
+                  infrastructure across India.
+                </p>
+              </div>
+            </div>
+
+            <!-- Founder 2: Bhakti Kargutkar -->
+            <div class="col-md-6">
+              <div class="fizens-team-card">
+                <div>
+                  <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div class="fizens-team-avatar">BK</div>
+                    <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-1"
+                      style="border-radius: 20px; font-size: 0.78rem;">Co-Founder</span>
+                  </div>
+                  <h3 class="fizens-team-name">Bhakti Kargutkar</h3>
+                  <div class="fizens-team-domain">Payment Gateways & Architecture</div>
+                  <div class="fizens-team-cred">MCA • 14+ Yrs</div>
+                </div>
+                <p class="fizens-team-desc">
+                  14+ years architecting high-throughput financial switches, enterprise payment gateways, and
+                  cryptographic ledger protocols.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- 09. FINAL CTA SECTION (FIZENS FULL DESIGN MATCH) -->
+      <!-- ========================================================================= -->
+      <div class="fizens-final-cta-wrap mt-5" data-aos="fade-up" data-aos-duration="850">
+
+        <!-- Headline -->
+        <h2 class="fizens-final-cta-title">
+          Your First Step To Effortless<br>Community Coordination Begins Here
+        </h2>
+
+        <!-- Subtitle -->
+        <p class="fizens-final-cta-sub">
+          Zero commission. Zero app downloads. Start organizing your community events, classes, and tournaments in 60
+          seconds on WhatsApp.
+        </p>
+
+        <!-- Centered CTA Pill Button -->
+        <div class="d-flex justify-content-center align-items-center mb-4">
+          <a href="https://wa.me/?text=Hi%208tivity,%20I%20want%20to%20start%20managing%20my%20community"
+            target="_blank" rel="noopener noreferrer" class="fizens-primary-btn fizens-cta-white-btn">
+            <span>Get Started Free on WhatsApp</span>
+            <div class="fizens-btn-icon-wrap" style="background: #00A884;">
+              <i class="ri-arrow-right-up-line fs-5 text-white"></i>
+            </div>
+          </a>
+        </div>
+
+        <!-- Bottom Overlapping Feature Cards (Flanking Left & Right Corners) -->
+        <div class="fizens-cta-cards-row">
+
+          <!-- Left Card: Net Event Pool with Sparkline Graph -->
+          <div class="fizens-cta-preview-card fizens-cta-card-left">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="text-muted" style="font-size: 0.72rem; text-transform: uppercase; font-weight: 700;">Net Pool
+                Goal</span>
+              <span class="badge bg-success bg-opacity-10 text-success" style="font-size: 0.7rem;">16/16 Locked</span>
+            </div>
+            <div class="h3 fw-bold text-dark mb-1">₹16,000</div>
+            <small class="text-muted d-block mb-3" style="font-size: 0.76rem;">Sunday Turf Tournament</small>
+
+            <!-- Sparkline SVG Wave -->
+            <svg width="100%" height="32" viewBox="0 0 200 36" fill="none" xmlns="http://www.w3.org/2000/svg"
+              class="mb-2">
+              <path d="M0 28C30 28 40 8 70 8C100 8 110 24 140 16C170 8 180 2 200 2" stroke="#00A884" stroke-width="3"
+                stroke-linecap="round" />
+              <circle cx="200" cy="2" r="4" fill="#00A884" />
+            </svg>
+            <div class="d-flex align-items-center gap-1 text-success small fw-semibold" style="font-size: 0.78rem;">
+              <i class="ri-arrow-up-line"></i> 100% Target Met • 0% Fees
+            </div>
+          </div>
+
+          <!-- Right Card: Instant Live UPI Settlements -->
+          <div class="fizens-cta-preview-card fizens-cta-card-right">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="text-muted" style="font-size: 0.72rem; text-transform: uppercase; font-weight: 700;">Live UPI
+                Stream</span>
+              <span class="badge bg-success text-white"
+                style="font-size: 0.68rem; background: #00A884 !important;">Instant</span>
+            </div>
+            <div class="h3 fw-bold text-dark mb-2">₹1,000 <span class="fs-6 text-muted fw-normal">/ pass</span></div>
+
+            <div class="p-2 rounded bg-light border mb-2" style="font-size: 0.76rem;">
+              <div class="d-flex justify-content-between text-dark fw-semibold">
+                <span>Rahul M. (UPI)</span>
+                <span class="text-success">+₹1,000</span>
+              </div>
+              <small class="text-muted" style="font-size: 0.68rem;">PAY-FT4821 • Verified</small>
+            </div>
+
+            <div class="d-flex align-items-center gap-1 text-muted" style="font-size: 0.72rem;">
+              <i class="ri-shield-check-fill text-success"></i> Direct to bank settlement
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Bootstrap 5.3.3 JS Bundle CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+  <!-- AOS (Animate On Scroll) JS CDN -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      AOS.init({
+        duration: 800,
+        easing: 'ease-out-cubic',
+        once: true,
+        offset: 60
+      });
+
+      // PhonePe Style Exact-Match Hero Carousel Logic
+      const slideItems = document.querySelectorAll('.hero-slide-item');
+      const dots = document.querySelectorAll('.pp-dot');
+      const sliderContainer = document.getElementById('hero');
+      let currentSlide = 0;
+      const totalSlides = slideItems.length;
+      let slideInterval = null;
+
+      function goToSlide(index) {
+        if (index < 0) index = totalSlides - 1;
+        if (index >= totalSlides) index = 0;
+        currentSlide = index;
+
+        // Update active slide
+        slideItems.forEach((slide, i) => {
+          slide.classList.toggle('active', i === currentSlide);
+        });
+
+        // Update active dot
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === currentSlide);
+        });
+      }
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', function () {
+          const slideIdx = parseInt(this.getAttribute('data-slide'));
+          goToSlide(slideIdx);
+          resetAutoPlay();
+        });
+      });
+
+      function startAutoPlay() {
+        if (!slideInterval) {
+          slideInterval = setInterval(function () {
+            goToSlide(currentSlide + 1);
+          }, 5000);
+        }
+      }
+
+      function stopAutoPlay() {
+        if (slideInterval) {
+          clearInterval(slideInterval);
+          slideInterval = null;
+        }
+      }
+
+      function resetAutoPlay() {
+        stopAutoPlay();
+        startAutoPlay();
+      }
+
+      if (sliderContainer) {
+        sliderContainer.addEventListener('mouseenter', stopAutoPlay);
+        sliderContainer.addEventListener('mouseleave', startAutoPlay);
+      }
+
+      startAutoPlay();
+    });
+  </script>
+
+</body>
+
+</html>
