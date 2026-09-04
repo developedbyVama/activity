@@ -2476,18 +2476,513 @@
     }
 
     /* Visible Feature Pills for Video Showcase */
-    .video-feature-pill {
-      background: #F8FAFC;
-      border: 1.5px solid #E2E8F0;
+    /* Hero Right Feature List */
+    .hero-feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-top: 25px;
+      margin-left: -11px;
+    }
+
+    .hero-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hero-feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #E6F7F2;
+      color: #00A884;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+
+    .hero-feature-title {
+      font-size: 1.05rem;
+      font-weight: 700;
       color: #0F172A;
-      font-size: 0.85rem;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: 20px;
+      margin-bottom: 2px;
+      line-height: 1.25;
+    }
+
+    .hero-feature-desc {
+      font-size: 0.88rem;
+      color: #64748B;
+      margin-bottom: 0;
+      line-height: 1.4;
+    }
+
+    /* ========================================================================= */
+    /* "WHY 8TIVITY" 2x2 BENTO SHOWCASE GRID (ENHANCED PREMIUM DESIGN) */
+    /* ========================================================================= */
+    .why-bento-card {
+      background: #FFFFFF;
+      border: 1.5px solid rgba(226, 232, 240, 0.9);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: 0 12px 35px rgba(15, 23, 42, 0.04);
+      transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+      height: 100%;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .why-bento-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 45px rgba(0, 168, 132, 0.1);
+      border-color: rgba(0, 168, 132, 0.45);
+    }
+
+    .why-card-num-badge {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 40px;
+      background: rgba(0, 168, 132, 0.1);
+      color: #00A884;
+      font-weight: 800;
+      font-size: 1.18rem;
+      border-radius: 14px;
+      margin-bottom: 16px;
+    }
+
+    .why-card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0F172A;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+      line-height: 1.22;
+    }
+
+    .why-card-desc {
+      font-size: 0.92rem;
+      color: #64748B;
+      line-height: 1.55;
+      font-weight: 400;
+      margin-bottom: 18px;
+    }
+
+    .why-card-footer {
+      border-top: 1px dashed #E2E8F0;
+      padding-top: 16px;
+      margin-top: 20px;
+      font-size: 0.82rem;
+      color: #64748B;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
       gap: 8px;
-      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+    }
+
+    .why-tag-partial {
+      background: #FEF3C7;
+      color: #D97706;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+    }
+
+    .why-tag-cross {
+      color: #EF4444;
+      font-weight: 700;
+    }
+
+    .why-tag-check {
+      color: #10B981;
+      font-weight: 700;
+    }
+
+    .why-tag-pill-green {
+      background: #E6F7F2;
+      color: #00A884;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 14px;
+      font-size: 0.78rem;
+    }
+
+    .why-tag-pill-red {
+      background: #FEE2E2;
+      color: #DC2626;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 14px;
+      font-size: 0.78rem;
+    }
+
+    /* Card 01: WhatsApp Mockup */
+    .wa-mockup-box {
+      background: #F8FAFC;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 20px;
+      padding: 16px;
+      position: relative;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.02);
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .wa-mockup-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #E2E8F0;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+
+    .wa-header-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .wa-group-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #00A884;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+
+    .wa-group-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1.1;
+    }
+
+    .wa-group-sub {
+      font-size: 0.7rem;
+      color: #10B981;
+      font-weight: 600;
+    }
+
+    .wa-msg-left {
+      background: #FFFFFF;
+      border-radius: 14px 14px 14px 2px;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: #1E293B;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      max-width: 90%;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .wa-msg-right {
+      background: #DCF8C6;
+      border-radius: 14px 14px 2px 14px;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: #0F172A;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      max-width: 82%;
+      margin-left: auto;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .wa-roster-pill-btn {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 24px;
+      padding: 8px 14px;
+      font-size: 0.78rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .wa-icon-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: #25D366;
+      color: #FFFFFF;
+      border-radius: 50%;
+      font-size: 1rem;
+      box-shadow: 0 4px 10px rgba(37, 211, 102, 0.35);
+    }
+
+    /* Card 02: Live Roster Mockup */
+    .roster-mockup-box {
+      background: #FFFFFF;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.03);
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .roster-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid #F1F5F9;
+    }
+
+    .roster-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #0F172A;
+    }
+
+    .roster-cap-pill {
+      background: #E6F7F2;
+      color: #00A884;
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+
+    .roster-user-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid #F8FAFC;
+    }
+
+    .roster-user-row:last-child {
+      border-bottom: none;
+    }
+
+    .roster-avatar-img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .roster-user-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #1E293B;
+    }
+
+    .roster-check-icon {
+      color: #10B981;
+      font-size: 1.1rem;
+    }
+
+    .roster-waitlist-badge {
+      background: #FEF3C7;
+      color: #D97706;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 10px;
+    }
+
+    /* Card 03: Direct UPI Mockup */
+    .upi-mockup-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #F8FAFC;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 20px;
+      padding: 18px 14px;
+      min-height: 220px;
+    }
+
+    .upi-circle-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #E6F7F2;
+      border: 2px solid #00A884;
+      color: #00A884;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0, 168, 132, 0.15);
+    }
+
+    .upi-arrow-divider {
+      color: #00A884;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .upi-card-content {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 14px 16px;
+      flex-grow: 1;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+    }
+
+    .upi-status-header {
+      font-size: 0.74rem;
+      color: #475569;
+      margin-bottom: 2px;
+      font-weight: 600;
+    }
+
+    .upi-amount-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #0F172A;
+      line-height: 1.1;
+    }
+
+    .upi-payer-sub {
+      font-size: 0.78rem;
+      color: #475569;
+      margin-top: 2px;
+    }
+
+    .upi-id-sub {
+      font-size: 0.7rem;
+      color: #94A3B8;
+    }
+
+    .upi-credited-pill {
+      background: #E6F7F2;
+      color: #00A884;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 6px;
+    }
+
+    /* Card 04: Payment Options Network Diagram Mockup */
+    .opt-diagram-box {
+      background: #F8FAFC;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 20px;
+      padding: 18px 14px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 220px;
+      overflow: hidden;
+    }
+
+    .opt-diagram-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .opt-center-circle {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: #E6F7F2;
+      border: 2px solid #00A884;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6px;
+      z-index: 2;
+      box-shadow: 0 6px 20px rgba(0, 168, 132, 0.18);
+    }
+
+    .opt-center-star {
+      color: #00A884;
+      font-size: 1rem;
+      margin-bottom: 2px;
+    }
+
+    .opt-center-text {
+      font-size: 0.6rem;
+      font-weight: 800;
+      color: #00A884;
+      line-height: 1.15;
+    }
+
+    .opt-node {
+      position: absolute;
+      background: #FFFFFF;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      z-index: 3;
+    }
+
+    .opt-node-free {
+      top: 10px;
+      background: #ECFDF5;
+      border-color: #A7F3D0;
+      color: #047857;
+    }
+
+    .opt-node-payfirst {
+      right: 10px;
+      background: #EFF6FF;
+      border-color: #BFDBFE;
+      color: #1D4ED8;
+    }
+
+    .opt-node-token {
+      bottom: 10px;
+      right: 12px;
+      background: #FFFBEB;
+      border-color: #FDE68A;
+      color: #B45309;
+    }
+
+    .opt-node-paylater {
+      bottom: 10px;
+      left: 12px;
+      background: #F3E8FF;
+      border-color: #DDD6FE;
+      color: #6D28D9;
     }
 
     /* Tutorial Cards (Light Fizens Theme) */
@@ -3685,28 +4180,53 @@
               </div>
             </div>
 
-            <!-- RIGHT WRAP: Plus Icon, Description & Social Proof -->
+            <!-- RIGHT WRAP: Plus Icon, Description & 3 Feature Points -->
             <div class="fizens-right-wrap" data-aos="fade-left">
               <div class="fizens-plus-wrap">
                 <i class="ri-add-line fs-2 text-success"></i>
               </div>
 
-              <p class="fizens-banner-details">
-                Simplify your community coordination. Our WhatsApp-native workflow makes collecting payments, locking
-                RSVPs, and eliminating dropouts effortless.
+              <p class="fizens-banner-details"
+                style="font-size: 1.02rem; line-height: 1.5; color: #334155; margin-bottom: 20px;">
+                Simplify community coordination with one WhatsApp-native workflow for RSVPs, payments, and live
+                attendance.
               </p>
 
-              <!-- <div class="fizens-counter-flex">
-                <div class="fizens-client-stack">
-                  <img src="assets/fizens-client-1.svg" alt="Member" class="fizens-client-img" />
-                  <img src="assets/fizens-client-2.svg" alt="Member" class="fizens-client-img" />
-                  <img src="assets/fizens-client-3.svg" alt="Member" class="fizens-client-img" />
+              <!-- 3 Feature Points from Reference Layout -->
+              <div class="hero-feature-list">
+                <!-- 1. WhatsApp-native -->
+                <div class="hero-feature-item">
+                  <div class="hero-feature-icon">
+                    <i class="ri-whatsapp-fill"></i>
+                  </div>
+                  <div>
+                    <div class="hero-feature-title">WhatsApp-native</div>
+                    <div class="hero-feature-desc">Work where your community is.</div>
+                  </div>
                 </div>
-                <div class="fizens-count-text">500+</div>
+
+                <!-- 2. Direct UPI collection -->
+                <div class="hero-feature-item">
+                  <div class="hero-feature-icon">
+                    <i class="ri-share-forward-fill"></i>
+                  </div>
+                  <div>
+                    <div class="hero-feature-title">Direct UPI collection</div>
+                    <div class="hero-feature-desc">Fast, secure & zero commission.</div>
+                  </div>
+                </div>
+
+                <!-- 3. Live roster & attendance -->
+                <div class="hero-feature-item">
+                  <div class="hero-feature-icon">
+                    <i class="ri-user-2-fill"></i>
+                  </div>
+                  <div>
+                    <div class="hero-feature-title">Live roster & attendance</div>
+                    <div class="hero-feature-desc">Real-time check-ins made easy.</div>
+                  </div>
+                </div>
               </div>
-              <p class="fizens-client-sub">
-                Trusted by community organizers, turf clubs & creators across India.
-              </p> -->
             </div>
 
           </div>
@@ -4484,355 +5004,214 @@
   <section id="comparison" class="page-section bg-light-mesh">
     <div class="container">
 
-      <!-- Section Header (No Badge, Matching Website Flow) -->
+      <!-- Section Header (Matching Client Reference: Why 8tivity & Revenue Tagline) -->
       <div class="row justify-content-center text-center mb-5" data-aos="fade-up">
         <div class="col-lg-8">
-          <h2 class="fizens-section-title">
-            Your community. Your revenue. <br> <span class="fizens-green-accent">Zero platform cuts.</span>
+          <h2 class="fizens-section-title mb-3">
+            Why <span class="fizens-green-accent">8tivity</span>
           </h2>
-          <p class="fizens-section-sub">
-            Say goodbye to 5–10% middleman fees. Run automated RSVPs and instant direct UPI settlements right inside
-            WhatsApp.
+          <p class="fizens-section-sub" style="font-size: 1.1rem; color: #475569;">
+            The simplest way to run activities, collect payments, and track attendance — all inside WhatsApp.
           </p>
         </div>
       </div>
 
-      <!-- 5 Competitive Advantage Feature Cards with Deep Saturated Badges & White Icons -->
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-3 mb-5" data-aos="fade-up"
-        data-aos-delay="100">
+      <!-- 2x2 Bento Showcase Grid (Exact Layout & Visual Mockups from Client Reference) -->
+      <div class="row row-cols-1 row-cols-md-2 g-4 mb-5" data-aos="fade-up" data-aos-delay="100">
 
-        <!-- 1. Creator First (Deep Emerald) -->
+        <!-- Card 01: Stay inside WhatsApp -->
         <div class="col">
-          <div class="adv-card">
-            <div class="adv-icon"
-              style="background: #00A884; color: #FFFFFF; box-shadow: 0 4px 14px rgba(0, 168, 132, 0.3);">
-              <i class="ri-shield-user-line"></i>
+          <div class="why-bento-card">
+            <div class="row align-items-start g-3">
+              <div class="col-12 col-sm-6">
+                <div class="why-card-num-badge">01</div>
+                <h3 class="why-card-title">Stay inside WhatsApp</h3>
+                <p class="why-card-desc">
+                  No app download.<br>No new platform for your community to learn.
+                </p>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="wa-mockup-box">
+                  <div class="wa-mockup-head">
+                    <div class="wa-header-group">
+                      <div class="wa-group-avatar"><i class="ri-team-line"></i></div>
+                      <div>
+                        <div class="wa-group-name">8tivity Club</div>
+                        <div class="wa-group-sub">online</div>
+                      </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="wa-icon-badge"><i class="ri-whatsapp-fill"></i></span>
+                      <i class="ri-more-2-fill text-muted"></i>
+                    </div>
+                  </div>
+                  <div class="wa-msg-left">
+                    Hi everyone! 🏸<br>Badminton this Saturday. Who's in?
+                    <div class="text-end text-muted mt-1" style="font-size: 0.65rem;">10:30 AM</div>
+                  </div>
+                  <div class="wa-msg-right">
+                    I'm in! 🙋‍♂️
+                    <div class="text-end mt-1" style="font-size: 0.65rem; color: #075E54;">10:31 AM <i
+                        class="ri-check-double-line text-primary"></i></div>
+                  </div>
+                  <div class="wa-roster-pill-btn">
+                    <i class="ri-checkbox-circle-fill text-success"></i> <b>25 going</b> &nbsp;•&nbsp; <span
+                      class="text-success fw-bold">View roster</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <h4 class="adv-title">Creator First</h4>
-            <p class="adv-desc">You own your community and the relationship.</p>
+            <div class="why-card-footer">
+              <span>WhatsApp Groups:</span> <span class="why-tag-partial">Partial</span>
+              <span>•</span>
+              <span>Google Forms:</span> <span class="why-tag-cross">✕</span>
+              <span>•</span>
+              <span>Ticketing:</span> <span class="why-tag-cross">✕</span>
+            </div>
           </div>
         </div>
 
-        <!-- 2. Zero Commission (Deep Amber / Gold) -->
+        <!-- Card 02: Know exactly who's coming -->
         <div class="col">
-          <div class="adv-card">
-            <div class="adv-icon"
-              style="background: #D97706; color: #FFFFFF; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.3);">
-              <i class="ri-money-rupee-circle-line"></i>
+          <div class="why-bento-card">
+            <div class="row align-items-start g-3">
+              <div class="col-12 col-sm-6">
+                <div class="why-card-num-badge">02</div>
+                <h3 class="why-card-title">Know exactly who's coming</h3>
+                <p class="why-card-desc">
+                  RSVPs, slot caps, waitlists and attendance in one live roster.
+                </p>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="roster-mockup-box">
+                  <div class="roster-head">
+                    <div class="roster-title-wrap">
+                      <i class="ri-team-line text-success fs-6"></i> Sunset Trek
+                    </div>
+                    <span class="roster-cap-pill">30/30</span>
+                  </div>
+                  <div class="roster-user-row">
+                    <div class="d-flex align-items-center gap-2">
+                      <img
+                        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80"
+                        class="roster-avatar-img" alt="Arjun">
+                      <span class="roster-user-name">Arjun Mehta</span>
+                    </div>
+                    <i class="ri-checkbox-circle-fill roster-check-icon"></i>
+                  </div>
+                  <div class="roster-user-row">
+                    <div class="d-flex align-items-center gap-2">
+                      <img
+                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80"
+                        class="roster-avatar-img" alt="Neha">
+                      <span class="roster-user-name">Neha Iyer</span>
+                    </div>
+                    <i class="ri-checkbox-circle-fill roster-check-icon"></i>
+                  </div>
+                  <div class="roster-user-row">
+                    <div class="d-flex align-items-center gap-2">
+                      <img
+                        src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=80&q=80"
+                        class="roster-avatar-img" alt="Rohan">
+                      <span class="roster-user-name">Rohan Singh</span>
+                    </div>
+                    <i class="ri-checkbox-circle-fill roster-check-icon"></i>
+                  </div>
+                  <div class="roster-user-row">
+                    <div class="d-flex align-items-center gap-2">
+                      <img
+                        src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=80&q=80"
+                        class="roster-avatar-img" alt="Aisha">
+                      <span class="roster-user-name">Aisha Khan</span>
+                    </div>
+                    <span class="roster-waitlist-badge">Waitlist</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <h4 class="adv-title">Zero Commission</h4>
-            <p class="adv-desc">Keep 100% of what your community gives.</p>
+            <div class="why-card-footer">
+              <span>WhatsApp:</span> <span class="why-tag-partial">Partial</span>
+              <span>•</span>
+              <span>Forms:</span> <span class="why-tag-partial">Partial</span>
+              <span>•</span>
+              <span>Ticketing:</span> <span class="why-tag-check">✓</span>
+            </div>
           </div>
         </div>
 
-        <!-- 3. Full Transparency (Deep Indigo / Blue) -->
+        <!-- Card 03: Money goes directly to you -->
         <div class="col">
-          <div class="adv-card">
-            <div class="adv-icon"
-              style="background: #2563EB; color: #FFFFFF; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);">
-              <i class="ri-eye-line"></i>
+          <div class="why-bento-card">
+            <div class="row align-items-start g-3">
+              <div class="col-12 col-sm-6">
+                <div class="why-card-num-badge">03</div>
+                <h3 class="why-card-title">Money goes directly to you</h3>
+                <p class="why-card-desc">
+                  Your UPI. Your money.<br>No platform wallet or settlement cycle.
+                </p>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="upi-mockup-box">
+                  <div class="upi-circle-icon">₹</div>
+                  <div class="upi-arrow-divider"><i class="ri-arrow-right-line"></i></div>
+                  <div class="upi-card-content">
+                    <div class="upi-status-header"><i class="ri-checkbox-circle-fill text-success"></i> Payment received
+                    </div>
+                    <div class="upi-amount-title">₹1,250</div>
+                    <div class="upi-payer-sub">From Arjun Mehta</div>
+                    <div class="upi-id-sub">UPI • arjun@upi</div>
+                    <div class="upi-credited-pill">
+                      <i class="ri-checkbox-circle-fill"></i> Credited to your account
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <h4 class="adv-title">Full Transparency</h4>
-            <p class="adv-desc">Live rosters and auditable ledger codes.</p>
+            <div class="why-card-footer">
+              <span>Ticketing:</span> <span class="why-tag-pill-red">3–5 day settlement</span>
+              <span>•</span>
+              <span>8tivity:</span> <span class="why-tag-pill-green">Direct</span>
+            </div>
           </div>
         </div>
 
-        <!-- 4. Works in WhatsApp (Deep WhatsApp Teal) -->
+        <!-- Card 04: Collect the way you want -->
         <div class="col">
-          <div class="adv-card">
-            <div class="adv-icon"
-              style="background: #075E54; color: #FFFFFF; box-shadow: 0 4px 14px rgba(7, 94, 84, 0.3);">
-              <i class="ri-whatsapp-line"></i>
+          <div class="why-bento-card">
+            <div class="row align-items-start g-3">
+              <div class="col-12 col-sm-6">
+                <div class="why-card-num-badge">04</div>
+                <h3 class="why-card-title">Collect the way you want</h3>
+                <p class="why-card-desc">
+                  Free, pay first, pay later or token now + balance later.
+                </p>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="opt-diagram-box">
+                  <!-- SVG Connector Lines -->
+                  <svg class="opt-diagram-lines" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M100 80 L100 25" stroke="#10B981" stroke-width="1.5" stroke-dasharray="3 3" />
+                    <path d="M100 80 L160 50" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="3 3" />
+                    <path d="M100 80 L155 125" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="3 3" />
+                    <path d="M100 80 L45 125" stroke="#8B5CF6" stroke-width="1.5" stroke-dasharray="3 3" />
+                  </svg>
+                  <div class="opt-node opt-node-free"><i class="ri-gift-line"></i> Free</div>
+                  <div class="opt-node opt-node-payfirst"><i class="ri-bank-card-line"></i> Pay First</div>
+                  <div class="opt-center-circle">
+                    <i class="ri-star-fill opt-center-star"></i>
+                    <div class="opt-center-text">Your Activity Payment Options</div>
+                  </div>
+                  <div class="opt-node opt-node-paylater"><i class="ri-time-line"></i> Pay Later</div>
+                  <div class="opt-node opt-node-token"><i class="ri-coins-line"></i> Token + Balance</div>
+                </div>
+              </div>
             </div>
-            <h4 class="adv-title">Works in WhatsApp</h4>
-            <p class="adv-desc">Zero app download for members or creators.</p>
+            <div class="why-card-footer">
+              <span class="text-muted">Flexible payment collection methods built for modern community events</span>
+            </div>
           </div>
         </div>
 
-        <!-- 5. Built for Communities (Deep Purple / Violet) -->
-        <div class="col">
-          <div class="adv-card">
-            <div class="adv-icon"
-              style="background: #7C3AED; color: #FFFFFF; box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);">
-              <i class="ri-community-line"></i>
-            </div>
-            <h4 class="adv-title">Built for Communities</h4>
-            <p class="adv-desc">Designed for repeat events and trust.</p>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Comparison Matrix Table Card with Elevated Hero Column -->
-      <div class="comp-matrix-card mb-5" data-aos="fade-up" data-aos-delay="200">
-        <div class="table-responsive">
-          <table class="table comp-table align-middle">
-            <thead>
-              <tr>
-                <th scope="col" style="width: 28%;" class="text-uppercase"
-                  style="color: #075E54; font-weight: 700; letter-spacing: 0.05em;">Capability Breakdown</th>
-
-                <!-- WhatsApp Groups -->
-                <th scope="col" class="text-center" style="width: 14%;">
-                  <div class="d-flex flex-column align-items-center gap-1">
-                    <div class="rounded-circle d-flex align-items-center justify-content-center shadow-sm"
-                      style="width: 38px; height: 38px; background: #E8F8EE; color: #25D366;">
-                      <i class="ri-whatsapp-fill fs-5"></i>
-                    </div>
-                    <div class="fw-bold text-dark small mt-1">WhatsApp</div>
-                    <small class="text-muted" style="font-size: 0.72rem;">Groups</small>
-                  </div>
-                </th>
-
-                <!-- Google Forms -->
-                <th scope="col" class="text-center" style="width: 14%;">
-                  <div class="d-flex flex-column align-items-center gap-1">
-                    <div class="rounded-circle d-flex align-items-center justify-content-center shadow-sm"
-                      style="width: 38px; height: 38px; background: #F3E8FF; color: #7C3AED;">
-                      <i class="ri-file-list-3-fill fs-5"></i>
-                    </div>
-                    <div class="fw-bold text-dark small mt-1">Google</div>
-                    <small class="text-muted" style="font-size: 0.72rem;">Forms</small>
-                  </div>
-                </th>
-
-                <!-- Ticketing Platforms -->
-                <th scope="col" class="text-center" style="width: 14%;">
-                  <div class="d-flex flex-column align-items-center gap-1">
-                    <div class="rounded-circle d-flex align-items-center justify-content-center shadow-sm"
-                      style="width: 38px; height: 38px; background: #FFEDD5; color: #F97316;">
-                      <i class="ri-coupon-fill fs-5"></i>
-                    </div>
-                    <div class="fw-bold text-dark small mt-1">Ticketing</div>
-                    <small class="text-muted" style="font-size: 0.72rem;">Platforms</small>
-                  </div>
-                </th>
-
-                <!-- Payment Gateways -->
-                <th scope="col" class="text-center" style="width: 14%;">
-                  <div class="d-flex flex-column align-items-center gap-1">
-                    <div class="rounded-circle d-flex align-items-center justify-content-center shadow-sm"
-                      style="width: 38px; height: 38px; background: #DBEAFE; color: #2563EB;">
-                      <i class="ri-link-m fs-5"></i>
-                    </div>
-                    <div class="fw-bold text-dark small mt-1">Payment</div>
-                    <small class="text-muted" style="font-size: 0.72rem;">Gateways</small>
-                  </div>
-                </th>
-
-                <!-- 8tivity Column (Elevated Hero) -->
-                <th scope="col" class="text-center col-8tiv" style="width: 16%;">
-                  <div class="d-flex flex-column align-items-center gap-1">
-                    <span class="badge text-white fw-bold px-2 py-1 mb-1 shadow-sm"
-                      style="background: #00A884 !important; font-size: 0.68rem; border-radius: 12px; letter-spacing: 0.04em;">RECOMMENDED</span>
-                    <div class="d-flex align-items-center justify-content-center gap-1">
-                      <div class="brand-logo-icon"
-                        style="width: 24px; height: 24px; font-size: 0.85rem; border-radius: 6px; padding: 0;">8</div>
-                      <span class="fw-bold fs-6 text-dark" style="color: #075E54 !important;">8tivity</span>
-                    </div>
-                    <small class="fw-bold" style="font-size: 0.72rem; color: #00A884;">0% Commission</small>
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-
-              <!-- 1. Structured RSVP -->
-              <tr>
-                <td>
-                  <div class="cap-label">
-                    <div class="cap-icon"><i class="ri-calendar-check-line"></i></div>
-                    <div>
-                      <span>Structured RSVP & Slot Caps</span>
-                      <small class="cap-subtext">Strict capacity limits & automatic waitlists</small>
-                    </div>
-                  </div>
-                </td>
-                <td class="text-center"><span class="comp-badge-partial">Partial</span></td>
-                <td class="text-center">
-                  <div class="comp-check-badge"><i class="ri-check-line"></i></div>
-                </td>
-                <td class="text-center">
-                  <div class="comp-check-badge"><i class="ri-check-line"></i></div>
-                </td>
-                <td class="text-center">
-                  <div class="comp-cross-badge"><i class="ri-close-line"></i></div>
-                </td>
-                <td class="col-8tiv">
-                  <div class="comp-check-hero"><i class="ri-check-line"></i></div>
-                </td>
-              </tr>
-
-              <!-- 2. Runs 100% Inside WhatsApp -->
-              <tr>
-                <td>
-                  <div class="cap-label">
-                    <div class="cap-icon"><i class="ri-whatsapp-line"></i></div>
-                    <div>
-                      <span>Zero App Download (WhatsApp Native)</span>
-                      <small class="cap-subtext">Runs directly where your members already chat</small>
-                    </div>
-                  </div>
-                </td>
-                <td class="text-center"><span class="comp-badge-partial">Partial</span></td>
-                <td class="text-center">
-                  <div class="comp-cross-badge"><i class="ri-close-line"></i></div>
-                </td>
-                <td class="text-center">
-                  <div class="comp-cross-badge"><i class="ri-close-line"></i></div>
-                </td>
-                <td class="text-center">
-                  <div class="comp-cross-badge"><i class="ri-close-line"></i></div>
-                </td>
-                <td class="col-8tiv">
-                  <div class="comp-check-hero"><i class="ri-check-line"></i></div>
-                </td>
-              </tr>
-
-              <!-- 3. Live Organizer Dashboard -->
-              <tr>
-                <td>
-                  <div class="cap-label">
-                    <div class="cap-icon"><i class="ri-bar-chart-box-line"></i></div>
-                    <div>
-                      <span>Real-time Ledger & Attendance Roster</span>
-                      <small class="cap-subtext">Live confirmed headcounts and attendee lists</small>
-                    </div>
-                  </div>
-                </td>
-                <td class="text-center">
-                  <div class="comp-cross-badge"><i class="ri-close-line"></i></div>
-                </td>
-                <td class="text-center">
-                  <div class="comp-cross-badge"><i class="ri-close-line"></i></div>
-                </td>
-                <td class="text-center"><span class="comp-badge-partial">Partial</span></td>
-                <td class="text-center">
-                  <div class="comp-cross-badge"><i class="ri-close-line"></i></div>
-                </td>
-                <td class="col-8tiv">
-                  <div class="comp-check-hero"><i class="ri-check-line"></i></div>
-                </td>
-              </tr>
-
-              <!-- 4. Direct UPI to Creator -->
-              <tr>
-                <td>
-                  <div class="cap-label">
-                    <div class="cap-icon"><i class="ri-bank-card-line"></i></div>
-                    <div>
-                      <span>Direct UPI Settlement (Zero Holding)</span>
-                      <small class="cap-subtext">100% of money direct to your personal or merchant UPI</small>
-                    </div>
-                  </div>
-                </td>
-                <td class="text-center">
-                  <div class="comp-cross-badge"><i class="ri-close-line"></i></div>
-                </td>
-                <td class="text-center">
-                  <div class="comp-cross-badge"><i class="ri-close-line"></i></div>
-                </td>
-                <td class="text-center"><span class="comp-badge-partial">3–5 Days Hold</span></td>
-                <td class="text-center">
-                  <div class="comp-check-badge"><i class="ri-check-line"></i></div>
-                </td>
-                <td class="col-8tiv">
-                  <div class="comp-check-hero"><i class="ri-check-line"></i></div>
-                </td>
-              </tr>
-
-              <!-- 5. Token Deposit + Balance Split -->
-              <tr>
-                <td>
-                  <div class="cap-label">
-                    <div class="cap-icon"><i class="ri-coins-line"></i></div>
-                    <div>
-                      <span>Token Deposit + Auto Balance Split</span>
-                      <small class="cap-subtext">Lock commitment upfront and split remainder smoothly</small>
-                    </div>
-                  </div>
-                </td>
-                <td class="text-center">
-                  <div class="comp-cross-badge"><i class="ri-close-line"></i></div>
-                </td>
-                <td class="text-center">
-                  <div class="comp-cross-badge"><i class="ri-close-line"></i></div>
-                </td>
-                <td class="text-center">
-                  <div class="comp-cross-badge"><i class="ri-close-line"></i></div>
-                </td>
-                <td class="text-center">
-                  <div class="comp-cross-badge"><i class="ri-close-line"></i></div>
-                </td>
-                <td class="col-8tiv">
-                  <div class="comp-check-hero"><i class="ri-check-line"></i></div>
-                </td>
-              </tr>
-
-              <!-- 6. Manual Payment Verification -->
-              <tr>
-                <td>
-                  <div class="cap-label">
-                    <div class="cap-icon"><i class="ri-shield-check-line"></i></div>
-                    <div>
-                      <span>Manual Payment Verification</span>
-                      <small class="cap-subtext">Confirm UPI reference IDs and payment receipts directly</small>
-                    </div>
-                  </div>
-                </td>
-                <td class="text-center">
-                  <div class="comp-cross-badge"><i class="ri-close-line"></i></div>
-                </td>
-                <td class="text-center">
-                  <div class="comp-cross-badge"><i class="ri-close-line"></i></div>
-                </td>
-                <td class="text-center">
-                  <div class="comp-cross-badge"><i class="ri-close-line"></i></div>
-                </td>
-                <td class="text-center">
-                  <div class="comp-cross-badge"><i class="ri-close-line"></i></div>
-                </td>
-                <td class="col-8tiv">
-                  <div class="comp-check-hero"><i class="ri-check-line"></i></div>
-                </td>
-              </tr>
-
-              <!-- 7. Platform Commission Fees -->
-              <tr>
-                <td>
-                  <div class="cap-label">
-                    <div class="cap-icon"><i class="ri-percent-line"></i></div>
-                    <div>
-                      <span>Platform Commission Fees</span>
-                      <small class="cap-subtext">Commission cut taken per ticket or booking</small>
-                    </div>
-                  </div>
-                </td>
-                <td class="text-center">
-                  <div class="fw-bold text-dark">0%</div>
-                  <small class="text-muted" style="font-size: 0.72rem;">(Manual)</small>
-                </td>
-                <td class="text-center">
-                  <div class="fw-bold text-dark">0%</div>
-                  <small class="text-muted" style="font-size: 0.72rem;">(Manual)</small>
-                </td>
-                <td class="text-center">
-                  <span class="badge bg-danger bg-opacity-10 text-danger fw-bold px-2.5 py-1 rounded-pill"
-                    style="font-size: 0.75rem;">5% – 10% Cut</span>
-                </td>
-                <td class="text-center">
-                  <span class="badge bg-danger bg-opacity-10 text-danger fw-bold px-2.5 py-1 rounded-pill"
-                    style="font-size: 0.75rem;">2% – 3% Fee</span>
-                </td>
-                <td class="col-8tiv">
-                  <span class="badge text-white fw-bold px-3 py-1.5 rounded-pill shadow-sm"
-                    style="background: #00A884 !important; font-size: 0.85rem;">0% Always</span>
-                </td>
-              </tr>
-
-            </tbody>
-          </table>
-        </div>
       </div>
 
     </div>
