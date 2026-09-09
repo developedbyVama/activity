@@ -6300,7 +6300,13 @@
           if (idx === index) {
             btn.classList.add('active');
             try {
-              btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+              const switcherContainer = document.querySelector('.hero-badge-switcher');
+              if (switcherContainer && btn) {
+                const containerRect = switcherContainer.getBoundingClientRect();
+                const btnRect = btn.getBoundingClientRect();
+                const scrollOffset = (btnRect.left - containerRect.left) + switcherContainer.scrollLeft - (containerRect.width / 2) + (btnRect.width / 2);
+                switcherContainer.scrollTo({ left: scrollOffset, behavior: 'smooth' });
+              }
             } catch (e) { }
           } else {
             btn.classList.remove('active');
